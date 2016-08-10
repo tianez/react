@@ -46,21 +46,21 @@
 
 	'use strict';
 
-	// const React = require('react');
-	// const ReactDOM = require('react-dom');
-	// const ReactRouter = require('react-router');
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	__webpack_require__(1);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _Layout = __webpack_require__(11);
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	var _Layout2 = _interopRequireDefault(_Layout);
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	var _home = __webpack_require__(12);
 
-	//webpack编译时导入
+	var _home2 = _interopRequireDefault(_home);
+
+	var _NoMatch = __webpack_require__(13);
+
+	var _NoMatch2 = _interopRequireDefault(_NoMatch);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var _ReactRouter = ReactRouter;
 	var Router = _ReactRouter.Router;
@@ -71,200 +71,42 @@
 	var hashHistory = _ReactRouter.hashHistory;
 	var browserHistory = _ReactRouter.browserHistory;
 
-	var _require = __webpack_require__(5);
+	/**
+	 * 路由
+	 */
 
-	var Layout = _require.Layout;
-	var Home = _require.Home;
-
-
-	__webpack_require__(8);
-
-	var Nomatch = function (_React$Component) {
-	    _inherits(Nomatch, _React$Component);
-
-	    function Nomatch() {
-	        _classCallCheck(this, Nomatch);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Nomatch).apply(this, arguments));
+	function onEnter(nextState, replace) {
+	    var pathname = nextState.location.pathname;
+	    var user = storedb('user').find() ? true : false;
+	    // console.log(storedb('user').find());
+	    if (!user && pathname !== 'login' && pathname !== '/login') {
+	        ConfigActions.update('msg', '你还没有登录，请先登录！');
+	        replace({
+	            pathname: '/login'
+	        });
+	    } else if (user && (pathname == 'login' || pathname == '/login')) {
+	        replace({
+	            pathname: '/'
+	        });
 	    }
-
-	    _createClass(Nomatch, [{
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement('li', {
-	                className: 'pure-menu-item'
-	            }, 'Nomatch');
-	        }
-	    }]);
-
-	    return Nomatch;
-	}(React.Component);
+	}
 
 	var routers = React.createElement(Router, {
 	    history: hashHistory
 	}, React.createElement(Route, {
 	    path: "/",
-	    component: Layout
+	    component: _Layout2.default
 	}, React.createElement(IndexRoute, {
-	    component: Home
-	})), React.createElement(Route, {
+	    component: _home2.default
+	}), React.createElement(Route, {
 	    path: "*",
-	    component: Nomatch
-	}));
+	    component: _NoMatch2.default
+	})));
 
 	ReactDOM.render(routers, document.getElementById('app'));
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Layout = __webpack_require__(6);
-	var Home = __webpack_require__(7);
-
-	var Temp = {
-	    Layout: Layout,
-	    Home: Home
-	};
-	module.exports = Temp;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Layout = function (_React$Component) {
-	    _inherits(Layout, _React$Component);
-
-	    function Layout() {
-	        _classCallCheck(this, Layout);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Layout).call(this));
-
-	        _this.state = {
-	            msg: ''
-	        };
-	        return _this;
-	    }
-
-	    _createClass(Layout, [{
-	        key: '_onChange',
-	        value: function _onChange() {
-	            var config = ConfigStore.getAll();
-	            console.log(config);
-	            window.document.title = config.title;
-	            this.setState(config);
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            ConfigStore.addChangeListener(this._onChange.bind(this));
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            ConfigStore.removeChangeListener(this._onChange.bind(this));
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement('div', {
-	                id: 'warper',
-	                className: 'pure-g'
-	            }, React.createElement('section', {
-	                id: 'main'
-	            }, React.createElement('section', {
-	                id: 'content',
-	                className: 'pure-u-1'
-	            }, this.props.children)));
-	        }
-	    }]);
-
-	    return Layout;
-	}(React.Component);
-
-	module.exports = Layout;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Home = function (_React$Component) {
-	    _inherits(Home, _React$Component);
-
-	    function Home() {
-	        _classCallCheck(this, Home);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this));
-	    }
-
-	    _createClass(Home, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var audio = this.refs.audio;
-	            ConfigActions.update('title', 'roles');
-	            // audio.play()
-	            audio.addEventListener('timeupdate', function () {
-	                //剩余时间
-	                if (!isNaN(audio.duration)) {
-	                    var surplus = audio.duration - audio.currentTime;
-	                    console.log(surplus);
-	                }
-	            }, false);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement('div', {
-	                className: 'form-group'
-	            }, React.createElement('div', {
-	                className: 'form-control'
-	            }, React.createElement('audio', {
-	                ref: 'audio',
-	                src: '1.mp3',
-	                controls: 'controls',
-	                loop: 'loop',
-	                autoPlay: false
-	            }, '亲 您的浏览器不支持html5的audio标签')));
-	        }
-	    }]);
-
-	    return Home;
-	}(React.Component);
-
-	module.exports = Home;
-
-/***/ },
-/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -272,12 +114,12 @@
 	 * action
 	 */
 
-	window.ConfigActions = __webpack_require__(9);
+	window.ConfigActions = __webpack_require__(2);
 
 	/**
 	 * store
 	 */
-	window.ConfigStore = __webpack_require__(15);
+	window.ConfigStore = __webpack_require__(8);
 
 	//获取url参数数组
 	window.get = function (url) {
@@ -319,12 +161,12 @@
 	};
 
 /***/ },
-/* 9 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(10);
+	var AppDispatcher = __webpack_require__(3);
 
 	var ConfigActions = {
 
@@ -358,7 +200,7 @@
 	module.exports = ConfigActions;
 
 /***/ },
-/* 10 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -376,12 +218,12 @@
 	 * A singleton that operates as the central hub for application updates.
 	 */
 
-	var Dispatcher = __webpack_require__(11).Dispatcher;
+	var Dispatcher = __webpack_require__(4).Dispatcher;
 
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 11 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -395,10 +237,10 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(12);
+	module.exports.Dispatcher = __webpack_require__(5);
 
 /***/ },
-/* 12 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -424,7 +266,7 @@
 	  }
 	}
 
-	var invariant = __webpack_require__(14);
+	var invariant = __webpack_require__(7);
 
 	var _prefix = 'ID_';
 
@@ -636,10 +478,10 @@
 	}();
 
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 13 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -805,7 +647,7 @@
 	};
 
 /***/ },
-/* 14 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -857,19 +699,19 @@
 	};
 
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 15 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(10);
-	var EventEmitter = __webpack_require__(16).EventEmitter;
-	var assign = __webpack_require__(17);
+	var AppDispatcher = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(9).EventEmitter;
+	var assign = __webpack_require__(10);
 
-	var CHANGE_EVENT = 'config';
+	var CHANGE_EVENT = 'change';
 
 	var _todos = {
 	    transition: 'example',
@@ -947,7 +789,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1225,7 +1067,7 @@
 	}
 
 /***/ },
-/* 17 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1311,6 +1153,158 @@
 
 		return to;
 	};
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Layout = function (_React$Component) {
+	    _inherits(Layout, _React$Component);
+
+	    function Layout() {
+	        _classCallCheck(this, Layout);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Layout).call(this));
+
+	        _this.state = {
+	            msg: ''
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Layout, [{
+	        key: '_onChange',
+	        value: function _onChange() {
+	            var config = ConfigStore.getAll();
+	            console.log(config);
+	            window.document.title = config.title;
+	            this.setState(config);
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            ConfigStore.addChangeListener(this._onChange.bind(this));
+	            ConfigActions.update('roles', 'roles');
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            ConfigStore.removeChangeListener(this._onChange.bind(this));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('div', {
+	                id: 'warper',
+	                className: 'pure-g'
+	            }, React.createElement('section', {
+	                id: 'main'
+	            }, React.createElement('section', {
+	                id: 'content',
+	                className: 'pure-u-1'
+	            }, this.props.children)));
+	        }
+	    }]);
+
+	    return Layout;
+	}(React.Component);
+
+	module.exports = Layout;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Home = function (_React$Component) {
+	    _inherits(Home, _React$Component);
+
+	    function Home() {
+	        _classCallCheck(this, Home);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this));
+	    }
+
+	    _createClass(Home, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var audio = this.refs.audio;
+	            // audio.play()
+	            audio.addEventListener('timeupdate', function () {
+	                //剩余时间
+	                if (!isNaN(audio.duration)) {
+	                    var surplus = audio.duration - audio.currentTime;
+	                    console.log(surplus);
+	                }
+	            }, false);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('div', {
+	                className: 'form-group'
+	            }, React.createElement('div', {
+	                className: 'form-control'
+	            }, React.createElement('audio', {
+	                ref: 'audio',
+	                src: '1.mp3',
+	                controls: 'controls',
+	                loop: 'loop',
+	                autoPlay: false
+	            }, '亲 您的浏览器不支持html5的audio标签')));
+	        }
+	    }]);
+
+	    return Home;
+	}(React.Component);
+
+	module.exports = Home;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var App = React.createClass({
+	    displayName: 'App',
+
+	    render: function render() {
+	        return React.createElement(
+	            'section',
+	            { className: 'warp' },
+	            React.createElement(
+	                'section',
+	                { className: 'container' },
+	                React.createElement(
+	                    'h3',
+	                    { className: 'jumbotron-heading' },
+	                    '没有发现对应的页面！'
+	                )
+	            )
+	        );
+	    }
+	});
+	module.exports = App;
 
 /***/ }
 /******/ ]);

@@ -3,12 +3,12 @@ var AppDispatcher = require('./AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
-var CHANGE_EVENT = 'config';
+var CHANGE_EVENT = 'change';
 
 var _todos = {
     transition: 'example',
     msg: '',
-    msg_n: 0,
+    msg_n: 0, 
     loading: true,
     title: '王的理想乡',
     pics: ''

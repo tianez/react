@@ -6,7 +6,6 @@ class Home extends React.Component {
     }
     componentDidMount() {
         let audio = this.refs.audio;
-        ConfigActions.update('title', 'roles')
         // audio.play()
         audio.addEventListener('timeupdate', function () { //剩余时间
             if (!isNaN(audio.duration)) {

@@ -1,10 +1,12 @@
 'use strict'
 
 const Layout = require('./layout')
+const Nomatch = require('./Nomatch')
 const Home = require('./home')
 
 var Temp = {
     Layout: Layout,
-    Home: Home,
+    Nomatch: Nomatch,
+    Home: Home
 }
 module.exports = Temp

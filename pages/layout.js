@@ -15,6 +15,7 @@ class Layout extends React.Component {
     }
     componentDidMount() {
         ConfigStore.addChangeListener(this._onChange.bind(this))
+        ConfigActions.update('roles', 'roles')
     }
     componentWillUnmount() {
         ConfigStore.removeChangeListener(this._onChange.bind(this))
