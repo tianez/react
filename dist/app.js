@@ -48,20 +48,9 @@
 
 	__webpack_require__(1);
 
-	var _Layout = __webpack_require__(11);
-
-	var _Layout2 = _interopRequireDefault(_Layout);
-
-	var _home = __webpack_require__(12);
-
-	var _home2 = _interopRequireDefault(_home);
-
-	var _NoMatch = __webpack_require__(13);
-
-	var _NoMatch2 = _interopRequireDefault(_NoMatch);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+	/**
+	 * 路由
+	 */
 	var _ReactRouter = ReactRouter;
 	var Router = _ReactRouter.Router;
 	var Route = _ReactRouter.Route;
@@ -71,9 +60,13 @@
 	var hashHistory = _ReactRouter.hashHistory;
 	var browserHistory = _ReactRouter.browserHistory;
 
-	/**
-	 * 路由
-	 */
+	var _require = __webpack_require__(11);
+
+	var Layout = _require.Layout;
+	var Nomatch = _require.Nomatch;
+	var Home = _require.Home;
+	var Post = _require.Post;
+
 
 	function onEnter(nextState, replace) {
 	    var pathname = nextState.location.pathname;
@@ -91,17 +84,7 @@
 	    }
 	}
 
-	var routers = React.createElement(Router, {
-	    history: hashHistory
-	}, React.createElement(Route, {
-	    path: "/",
-	    component: _Layout2.default
-	}, React.createElement(IndexRoute, {
-	    component: _home2.default
-	}), React.createElement(Route, {
-	    path: "*",
-	    component: _NoMatch2.default
-	})));
+	var routers = React.createElement(Router, { history: hashHistory }, React.createElement(Route, { path: "/", component: Layout }, React.createElement(IndexRoute, { component: Home }), React.createElement(Route, { path: "post", component: Post }), React.createElement(Route, { path: "*", component: Nomatch })));
 
 	ReactDOM.render(routers, document.getElementById('app'));
 
@@ -1156,6 +1139,25 @@
 
 /***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Layout = __webpack_require__(12);
+	var Nomatch = __webpack_require__(13);
+	var Home = __webpack_require__(14);
+	var Post = __webpack_require__(15);
+
+	var Temp = {
+	    Layout: Layout,
+	    Nomatch: Nomatch,
+	    Home: Home,
+	    Post: Post
+	};
+	module.exports = Temp;
+
+/***/ },
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1167,6 +1169,9 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _ReactRouter = ReactRouter;
+	var Link = _ReactRouter.Link;
 
 	var Layout = function (_React$Component) {
 	    _inherits(Layout, _React$Component);
@@ -1194,7 +1199,6 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            ConfigStore.addChangeListener(this._onChange.bind(this));
-	            ConfigActions.update('roles', 'roles');
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
@@ -1212,7 +1216,13 @@
 	            }, React.createElement('section', {
 	                id: 'content',
 	                className: 'pure-u-1'
-	            }, this.props.children)));
+	            }, React.createElement(Link, {
+	                to: '/',
+	                activeClassName: 'active'
+	            }, '首页'), React.createElement(Link, {
+	                to: 'post',
+	                activeClassName: 'active'
+	            }, 'post'), this.props.children)));
 	        }
 	    }]);
 
@@ -1222,7 +1232,34 @@
 	module.exports = Layout;
 
 /***/ },
-/* 12 */
+/* 13 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var Nomatch = React.createClass({
+	    displayName: 'Nomatch',
+
+	    render: function render() {
+	        return React.createElement(
+	            'section',
+	            { className: 'warp' },
+	            React.createElement(
+	                'section',
+	                { className: 'container' },
+	                React.createElement(
+	                    'h3',
+	                    { className: 'jumbotron-heading' },
+	                    '没有发现对应的页面！'
+	                )
+	            )
+	        );
+	    }
+	});
+	module.exports = Nomatch;
+
+/***/ },
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1247,6 +1284,7 @@
 	    _createClass(Home, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            ConfigActions.update('title', '首页');
 	            var audio = this.refs.audio;
 	            // audio.play()
 	            audio.addEventListener('timeupdate', function () {
@@ -1280,31 +1318,48 @@
 	module.exports = Home;
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	var App = React.createClass({
-	    displayName: 'App',
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	    render: function render() {
-	        return React.createElement(
-	            'section',
-	            { className: 'warp' },
-	            React.createElement(
-	                'section',
-	                { className: 'container' },
-	                React.createElement(
-	                    'h3',
-	                    { className: 'jumbotron-heading' },
-	                    '没有发现对应的页面！'
-	                )
-	            )
-	        );
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Post = function (_React$Component) {
+	    _inherits(Post, _React$Component);
+
+	    function Post() {
+	        _classCallCheck(this, Post);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Post).call(this));
 	    }
-	});
-	module.exports = App;
+
+	    _createClass(Post, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            ConfigActions.update('title', 'post');
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('div', {
+	                className: 'form-group'
+	            }, React.createElement('div', {
+	                className: 'form-control'
+	            }, 'Post'));
+	        }
+	    }]);
+
+	    return Post;
+	}(React.Component);
+
+	module.exports = Post;
 
 /***/ }
 /******/ ]);

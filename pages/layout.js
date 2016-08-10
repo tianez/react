@@ -1,5 +1,7 @@
 'use strict'
-
+const {
+    Link
+} = ReactRouter
 class Layout extends React.Component {
     constructor() {
         super()
@@ -15,7 +17,6 @@ class Layout extends React.Component {
     }
     componentDidMount() {
         ConfigStore.addChangeListener(this._onChange.bind(this))
-        ConfigActions.update('roles', 'roles')
     }
     componentWillUnmount() {
         ConfigStore.removeChangeListener(this._onChange.bind(this))
@@ -32,7 +33,17 @@ class Layout extends React.Component {
                     React.createElement('section', {
                         id: 'content',
                         className: 'pure-u-1'
-                    }, this.props.children)
+                    },
+                        React.createElement(Link, {
+                            to: '/',
+                            activeClassName: 'active'
+                        },'首页'),
+                        React.createElement(Link, {
+                            to: 'post',
+                            activeClassName: 'active'
+                        },'post'),
+                        this.props.children
+                    )
                 )
             )
         )

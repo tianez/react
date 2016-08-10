@@ -1,6 +1,6 @@
 'use strict';
 
-const App = React.createClass({
+const Nomatch = React.createClass({
     render: function() {
         return (
             <section className='warp'>
@@ -11,4 +11,4 @@ const App = React.createClass({
         )
     }
 })
-module.exports = App;
+module.exports = Nomatch;

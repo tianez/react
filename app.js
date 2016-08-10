@@ -18,7 +18,8 @@ const {
 const {
     Layout,
     Nomatch,
-    Home
+    Home,
+    Post
 } = require('./pages')
 
 function onEnter(nextState, replace) {
@@ -40,8 +41,9 @@ function onEnter(nextState, replace) {
 const routers = (
     React.createElement(Router, { history: hashHistory },
         React.createElement(Route, { path: "/", component: Layout },
-            React.createElement(IndexRoute, { component: Index }),
-            React.createElement(Route, { path: "*", component: NoMatch })
+            React.createElement(IndexRoute, { component: Home }),
+            React.createElement(Route, { path: "post", component: Post }),
+            React.createElement(Route, { path: "*", component: Nomatch })
         )
     )
 )

@@ -5,6 +5,7 @@ class Home extends React.Component {
         super()
     }
     componentDidMount() {
+        ConfigActions.update('title', '首页')
         let audio = this.refs.audio;
         // audio.play()
         audio.addEventListener('timeupdate', function () { //剩余时间
