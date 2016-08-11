@@ -1,14 +1,14 @@
 'use strict';
 
-const Nomatch = React.createClass({
-    render: function() {
+class Nomatch extends React.Component {
+    render() {
         return (
-            <section className='warp'>
-                <section className = "container" >
-                    <h3 className = "jumbotron-heading" >没有发现对应的页面！</h3>
-                </section>
-            </section>
+            React.createElement('div', {
+                className: 'warp'
+            },
+                '没有发现对应的页面！'
+            )
         )
     }
-})
+}
 module.exports = Nomatch;

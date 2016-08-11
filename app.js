@@ -1,7 +1,6 @@
 'use strict'
-import './global'
 
-
+require('./global')
 /**
  * 路由
  */
