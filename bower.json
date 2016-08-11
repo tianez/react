@@ -17,6 +17,8 @@
   ],
   "dependencies": {
     "font-awesome": "~4.5.0",
-    "pure": "^0.6.0"
+    "pure": "^0.6.0",
+    "storedb": "^0.1.2",
+    "animate.css": "^3.5.2"
   }
 }
