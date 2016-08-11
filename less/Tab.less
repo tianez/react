@@ -1,0 +1,43 @@
+.tab {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 600px;
+    overflow: hidden;
+    background: #eee;
+    margin: 0 auto;
+    .active {
+        color: #f00;
+    }
+    .tab-cards2 {
+        position: relative;
+        .tab-card2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            display: block;
+            background: #f00;
+            z-index: 1;
+            line-height: 200px;
+            font-size: 36px;
+            text-align: center;
+        }
+        .active {
+            background: #00f;
+            z-index: 9;
+            transform: translateX(0);
+        }
+        .pre {
+            background: #0f0;
+            z-index: 9;
+            transform: translateX(-100%);
+        }
+        .next {
+            background: #00f;
+            z-index: 9;
+            transform: translateX(100%);
+        }
+    }
+}

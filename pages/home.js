@@ -1,5 +1,8 @@
 'use strict'
-
+const {
+    Form,
+    Input
+} = require('../components/Forms')
 class Home extends React.Component {
     constructor() {
         super()
@@ -29,7 +32,12 @@ class Home extends React.Component {
                         controls: 'controls',
                         loop: 'loop',
                         autoPlay: false
-                    }, '亲 您的浏览器不支持html5的audio标签')
+                    }, '亲 您的浏览器不支持html5的audio标签'),
+                    React.createElement(Form, {
+                        legend: '表单',
+                    },
+                        React.createElement(Input)
+                    )
                 )
             )
         )

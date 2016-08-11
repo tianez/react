@@ -45,12 +45,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	// import './less/style.less'
 
-	__webpack_require__(1);
+	__webpack_require__(3);
+
+	__webpack_require__(7);
 	/**
 	 * 路由
 	 */
+
 	var _ReactRouter = ReactRouter;
 	var Router = _ReactRouter.Router;
 	var Route = _ReactRouter.Route;
@@ -60,7 +62,7 @@
 	var hashHistory = _ReactRouter.hashHistory;
 	var browserHistory = _ReactRouter.browserHistory;
 
-	var _require = __webpack_require__(11);
+	var _require = __webpack_require__(17);
 
 	var Layout = _require.Layout;
 	var Nomatch = _require.Nomatch;
@@ -89,7 +91,18 @@
 	ReactDOM.render(routers, document.getElementById('app'));
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */,
+/* 3 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97,12 +110,12 @@
 	 * action
 	 */
 
-	window.ConfigActions = __webpack_require__(2);
+	window.ConfigActions = __webpack_require__(8);
 
 	/**
 	 * store
 	 */
-	window.ConfigStore = __webpack_require__(8);
+	window.ConfigStore = __webpack_require__(14);
 
 	//获取url参数数组
 	window.get = function (url) {
@@ -144,12 +157,12 @@
 	};
 
 /***/ },
-/* 2 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(3);
+	var AppDispatcher = __webpack_require__(9);
 
 	var ConfigActions = {
 
@@ -183,7 +196,7 @@
 	module.exports = ConfigActions;
 
 /***/ },
-/* 3 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -201,12 +214,12 @@
 	 * A singleton that operates as the central hub for application updates.
 	 */
 
-	var Dispatcher = __webpack_require__(4).Dispatcher;
+	var Dispatcher = __webpack_require__(10).Dispatcher;
 
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 4 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -220,10 +233,10 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(5);
+	module.exports.Dispatcher = __webpack_require__(11);
 
 /***/ },
-/* 5 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -249,7 +262,7 @@
 	  }
 	}
 
-	var invariant = __webpack_require__(7);
+	var invariant = __webpack_require__(13);
 
 	var _prefix = 'ID_';
 
@@ -461,10 +474,10 @@
 	}();
 
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 6 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -630,7 +643,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -682,17 +695,17 @@
 	};
 
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 8 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(9).EventEmitter;
-	var assign = __webpack_require__(10);
+	var AppDispatcher = __webpack_require__(9);
+	var EventEmitter = __webpack_require__(15).EventEmitter;
+	var assign = __webpack_require__(16);
 
 	var CHANGE_EVENT = 'change';
 
@@ -772,7 +785,7 @@
 	}
 
 /***/ },
-/* 9 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1050,7 +1063,7 @@
 	}
 
 /***/ },
-/* 10 */
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1138,15 +1151,15 @@
 	};
 
 /***/ },
-/* 11 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Layout = __webpack_require__(12);
-	var Nomatch = __webpack_require__(13);
-	var Home = __webpack_require__(14);
-	var Post = __webpack_require__(15);
+	var Layout = __webpack_require__(18);
+	var Nomatch = __webpack_require__(19);
+	var Home = __webpack_require__(20);
+	var Post = __webpack_require__(28);
 
 	var Temp = {
 	    Layout: Layout,
@@ -1157,7 +1170,7 @@
 	module.exports = Temp;
 
 /***/ },
-/* 12 */
+/* 18 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1232,7 +1245,7 @@
 	module.exports = Layout;
 
 /***/ },
-/* 13 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1269,8 +1282,8 @@
 	module.exports = Nomatch;
 
 /***/ },
-/* 14 */
-/***/ function(module, exports) {
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1281,6 +1294,11 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _require = __webpack_require__(21);
+
+	var Form = _require.Form;
+	var Input = _require.Input;
 
 	var Home = function (_React$Component) {
 	    _inherits(Home, _React$Component);
@@ -1318,7 +1336,9 @@
 	                controls: 'controls',
 	                loop: 'loop',
 	                autoPlay: false
-	            }, '亲 您的浏览器不支持html5的audio标签')));
+	            }, '亲 您的浏览器不支持html5的audio标签'), React.createElement(Form, {
+	                legend: '表单'
+	            }, React.createElement(Input))));
 	        }
 	    }]);
 
@@ -1328,7 +1348,326 @@
 	module.exports = Home;
 
 /***/ },
-/* 15 */
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Form = __webpack_require__(22);
+	var Input = __webpack_require__(25);
+	var Tab = __webpack_require__(27);
+
+	var Forms = {
+	    Form: Form,
+	    Input: Input,
+	    Tab: Tab
+	};
+	module.exports = Forms;
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var classNames = __webpack_require__(23);
+
+	var Form = function (_React$Component) {
+	    _inherits(Form, _React$Component);
+
+	    function Form() {
+	        _classCallCheck(this, Form);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Form).call(this));
+	    }
+
+	    _createClass(Form, [{
+	        key: 'handleSubmit',
+	        value: function handleSubmit(e) {
+	            e.preventDefault();
+	            console.log(this.props.info);
+	            if (this.props.onSubmit()) {
+	                this.props.onSubmit(e);
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('form', {
+	                className: 'form-fields form-horizontal',
+	                role: 'form',
+	                onSubmit: this.handleSubmit
+	            }, React.createElement('fieldset', {
+	                className: 'form-fieldset'
+	            }, React.createElement('legend', {
+	                className: 'form-legend'
+	            }, this.props.legend), this.props.children));
+	        }
+	    }]);
+
+	    return Form;
+	}(React.Component);
+
+	Form.defaultProps = {
+	    value: '保存'
+	};
+	module.exports = Form;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames() {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg === 'undefined' ? 'undefined' : _typeof(arg);
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if ("function" === 'function' && _typeof(__webpack_require__(24)) === 'object' && __webpack_require__(24)) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	})();
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var classNames = __webpack_require__(23);
+	var FormGroup = __webpack_require__(26);
+
+	var Input = function (_React$Component) {
+	    _inherits(Input, _React$Component);
+
+	    function Input(props) {
+	        _classCallCheck(this, Input);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Input).call(this, props));
+
+	        _this.state = {
+	            value: props.value,
+	            help: props.help,
+	            length: props.value.length || 0
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Input, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            var length = this.props.value.length || 0;
+	            var help = this.props.help || '请输入' + this.props.title;
+	            this.setState({
+	                help: help
+	            });
+	        }
+	    }, {
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate(nextProps, nextState) {
+	            return nextProps.value !== this.props.value || this.state.value !== nextState.value;
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            this.state = {
+	                value: nextProps.value
+	            };
+	        }
+	    }, {
+	        key: '_onChange',
+	        value: function _onChange(e) {
+	            var error = void 0;
+	            var warning = void 0;
+	            var success = void 0;
+	            var value = e.target.value.replace(/(^\s*)|(\s*$)/, "");
+	            var length = value.length;
+	            console.log(value);
+	            var help = this.props.help || '请输入' + this.props.title;
+	            // if (length > 0) {
+	            //     if (this.props.min && length < this.props.min) {
+	            //         help = '请输入至少' + this.props.min + '个字符！'
+	            //         error = true
+	            //     } else if (this.props.max && length > this.props.max) {
+	            //         help = '请输入至多' + this.props.max + '个字符！'
+	            //         error = true
+	            //     }
+	            //     if (!error) {
+	            //         success = true
+	            //     }
+	            // } else if (this.props.required) {
+	            //     help = this.props.title + '必须填写！'
+	            //     warning = true
+	            // }
+	            this.setState({
+	                value: value,
+	                help: help,
+	                length: length
+	            });
+	            if (this.props.onChange) {
+	                this.props.onChange(this.props.name, value);
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var Class = classNames({
+	                'has-error': this.state.error,
+	                'has-warning': this.state.warning,
+	                'has-success': this.state.success
+	            });
+	            var limit = ' ' + this.state.length;
+	            if (this.props.max) {
+	                limit += ' / ' + this.props.max;
+	            }
+	            return React.createElement(FormGroup, {
+	                class: Class,
+	                title: this.props.title,
+	                limit: limit,
+	                help: this.state.help
+	            }, React.createElement('input', {
+	                className: 'form-input',
+	                type: this.props.type,
+	                max: this.props.max,
+	                min: this.props.min,
+	                placeholder: this.props.placeholder,
+	                disabled: this.props.disabled,
+	                autoComplete: this.props.autoComplete,
+	                value: this.state.value,
+	                onChange: this._onChange.bind(this)
+	            }));
+	        }
+	    }]);
+
+	    return Input;
+	}(React.Component);
+
+	Input.defaultProps = {
+	    title: '字段名称',
+	    type: 'text',
+	    value: 'haode',
+	    autocomplete: 'off',
+	    required: 'required',
+	    help: '帮助提示'
+	};
+	module.exports = Input;
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var classNames = __webpack_require__(23);
+
+	var FormGroup = function (_React$Component) {
+	    _inherits(FormGroup, _React$Component);
+
+	    function FormGroup() {
+	        _classCallCheck(this, FormGroup);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(FormGroup).apply(this, arguments));
+	    }
+
+	    _createClass(FormGroup, [{
+	        key: 'render',
+	        value: function render() {
+	            var classname = this.props.className ? 'form-group ' + this.props.className : 'form-group';
+	            return React.createElement('div', {
+	                className: classname
+	            }, React.createElement('label', {
+	                className: 'form-label'
+	            }, this.props.title), React.createElement('div', {
+	                className: 'form-control'
+	            }, this.props.limit ? React.createElement('i', {
+	                className: 'form-ico fa'
+	            }, this.props.limit) : null, this.props.children, this.props.help ? React.createElement('span', {
+	                className: 'form-help'
+	            }, this.props.help) : null));
+	        }
+	    }]);
+
+	    return FormGroup;
+	}(React.Component);
+
+	module.exports = FormGroup;
+
+/***/ },
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1340,6 +1679,229 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Tab = function (_React$Component) {
+	    _inherits(Tab, _React$Component);
+
+	    function Tab() {
+	        _classCallCheck(this, Tab);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Tab).call(this));
+
+	        _this.state = {
+	            dotstyle: {
+	                top: 0,
+	                left: 0
+	            },
+	            dot: 1
+	        };
+	        _this.autoplayTimer = null;
+	        return _this;
+	    }
+
+	    _createClass(Tab, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            // this.autoplay()
+	        }
+	    }, {
+	        key: 'autoplay',
+	        value: function autoplay() {
+	            clearTimeout(this.autoplayTimer);
+	            var dot = this.state.dot;
+	            this.autoplayTimer = setInterval(function () {
+	                var active = document.getElementsByClassName('active');
+	                var pre = document.getElementsByClassName('pre');
+	                var next = document.getElementsByClassName('next');
+	            }, 1000);
+	        }
+	    }, {
+	        key: '_onClick',
+	        value: function _onClick(index) {
+	            this.setState({
+	                dot: index
+	            });
+	        }
+	    }, {
+	        key: 'onMouseDown',
+	        value: function onMouseDown(e) {
+	            console.log('鼠标按下了！');
+	            e.target.style.transition = "all 0s";
+	            console.log(e.clientY);
+	            console.log(e.target.getBoundingClientRect().top);
+	            console.log(e);
+	        }
+	    }, {
+	        key: 'onMouseMove',
+	        value: function onMouseMove(e) {
+	            console.log('鼠标移动了！');
+	            console.log(e.clientX);
+	            console.log(e.target.getBoundingClientRect().left);
+	            console.log(e);
+	        }
+	    }, {
+	        key: 'onDragStart',
+	        value: function onDragStart(e) {
+	            console.log('开始拖动');
+	            // alert('开始拖动')
+	            // console.log(e.clientX)
+	            console.log(e.target.getBoundingClientRect().left);
+	            this.setState({
+	                x: e.clientX
+	            });
+	        }
+	    }, {
+	        key: 'onDrag',
+	        value: function onDrag(e) {
+	            console.log('拖动');
+	            console.log(this.state.x);
+	            console.log(e.clientX);
+	            alert(e.clientX);
+	            if (e.clientX == 0) {
+	                return;
+	            }
+	            var left = -(this.state.x - e.clientX) + 'px';
+	            alert(left);
+	            console.log(left);
+	            e.target.style.left = left;
+	        }
+	    }, {
+	        key: 'onDragOver',
+	        value: function onDragOver(e) {
+	            console.log('拖动结束');
+	            var width = e.target.getBoundingClientRect().width;
+	            var w = width / 2;
+	            var left = this.state.x - e.clientX;
+	            console.log(left);
+	            if (left > w) {
+	                e.target.style.transition = "all .6s";
+	                console.log(12121);
+	                e.target.style.left = -width + 'px';
+	            } else if (-left > w) {
+	                e.target.style.transition = "all .6s";
+	                console.log(99);
+	                e.target.style.left = width + 'px';
+	            } else {
+	                e.target.style.transition = "all .6s";
+	                e.target.style.left = 0;
+	            }
+	            console.log(e.target.getBoundingClientRect().width);
+	        }
+	    }, {
+	        key: 'onTouchStart',
+	        value: function onTouchStart(e) {
+	            this.setState({
+	                mx: e.touches[0].pageX
+	            });
+	        }
+	    }, {
+	        key: 'onTouchMove',
+	        value: function onTouchMove(e) {
+	            // alert(e.touches[0].pageX)
+	        }
+	    }, {
+	        key: 'onTouchEnd',
+	        value: function onTouchEnd(e) {
+	            alert(12);
+	            alert(e.TouchList);
+	            alert(123);
+	        }
+	    }, {
+	        key: 'onTouchCancel',
+	        value: function onTouchCancel(e) {
+	            alert(1);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var dot = this.state.dot;
+	            var childs = [];
+	            if (this.props.children) {
+	                if (this.props.children.length) {
+	                    childs = this.props.children;
+	                } else {
+	                    childs.push(this.props.children);
+	                }
+	            }
+	            return React.createElement('div', {
+	                className: 'tab'
+	            }, React.createElement('div', {
+	                className: 'tab-cards'
+	            }, childs.map(function (child, index) {
+	                var active = '';
+	                if (index == dot) {
+	                    active = ' active';
+	                } else if (index == dot - 1) {
+	                    active = ' pre';
+	                } else if (index == dot - 1) {
+	                    active = ' next';
+	                }
+	                return React.createElement('div', {
+	                    key: index,
+	                    onClick: this._onClick.bind(this, index),
+	                    className: 'tab-card' + active
+	                }, child.props.title);
+	            }.bind(this)), React.createElement('div', {
+	                className: 'tab-card',
+	                style: {
+	                    width: '5rem'
+	                }
+	            })), React.createElement('div', {
+	                className: 'tab-cards2'
+	            }, childs.map(function (child, index) {
+	                var cur = '';
+	                if (index == dot) {
+	                    cur = ' active';
+	                } else if (index == dot - 1) {
+	                    cur = ' pre';
+	                } else if (index == dot - 1) {
+	                    cur = ' next';
+	                }
+	                return React.createElement('div', {
+	                    key: index,
+	                    draggable: true,
+	                    className: 'tab-card2 ' + cur,
+	                    onMouseDown: this.onMouseDown.bind(this),
+	                    // onMouseMove: this.onMouseMove.bind(this),
+	                    onDragStart: this.onDragStart.bind(this),
+	                    onDrag: this.onDrag.bind(this),
+	                    onDragOver: this.onDragOver.bind(this),
+
+	                    onTouchStart: this.onTouchStart.bind(this),
+	                    onTouchMove: this.onTouchMove.bind(this),
+	                    onTouchEnd: this.onTouchEnd.bind(this),
+	                    onTouchCancel: this.onTouchCancel.bind(this)
+	                }, child.props.children);
+	            }.bind(this))));
+	        }
+	    }]);
+
+	    return Tab;
+	}(React.Component);
+
+	Tab.defaultProps = {
+	    value: '保存'
+	};
+
+	module.exports = Tab;
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _require = __webpack_require__(21);
+
+	var Tab = _require.Tab;
 
 	var Post = function (_React$Component) {
 	    _inherits(Post, _React$Component);
@@ -1354,15 +1916,35 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            ConfigActions.update('title', 'post');
+	            storedb('article').insert({ 'id': 1, 'value': '23232323' });
+	            var res = storedb('article').find({ 'id': 1 });
+	            console.log(res);
+	            var timestamp = res[0]['_id'];
+	            // var timestamp = '1425553097';
+	            var d = new Date(timestamp); //根据时间戳生成的时间对象
+	            var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+	            console.log(date);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return React.createElement('div', {
 	                className: 'form-group'
-	            }, React.createElement('div', {
+	            }, React.createElement(Tab, {
 	                className: 'form-control'
-	            }, 'Post'));
+	            }, React.createElement('div', {
+	                className: 'form-control',
+	                title: 'title'
+	            }, 'sdsdsdsds'), React.createElement('div', {
+	                className: 'form-control',
+	                title: 'title22'
+	            }, 'sdsdsdsds22222222222'), React.createElement('div', {
+	                className: 'form-control',
+	                title: 'title22'
+	            }, '333333333333333333333333'), React.createElement('div', {
+	                className: 'form-control',
+	                title: 'title22'
+	            }, '4444444444444444444444444444')));
 	        }
 	    }]);
 

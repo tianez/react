@@ -1,9 +1,10 @@
 'use strict'
-// import './less/style.less'
+import './less/style.less'
 require('./global')
 /**
  * 路由
  */
+
 const {
     Router,
     Route,
