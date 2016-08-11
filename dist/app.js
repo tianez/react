@@ -45,10 +45,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	// import './less/style.less'
 
-	__webpack_require__(2);
-
-	__webpack_require__(7);
+	__webpack_require__(1);
 	/**
 	 * 路由
 	 */
@@ -61,7 +60,7 @@
 	var hashHistory = _ReactRouter.hashHistory;
 	var browserHistory = _ReactRouter.browserHistory;
 
-	var _require = __webpack_require__(17);
+	var _require = __webpack_require__(11);
 
 	var Layout = _require.Layout;
 	var Nomatch = _require.Nomatch;
@@ -90,18 +89,7 @@
 	ReactDOM.render(routers, document.getElementById('app'));
 
 /***/ },
-/* 1 */,
-/* 2 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -109,12 +97,12 @@
 	 * action
 	 */
 
-	window.ConfigActions = __webpack_require__(8);
+	window.ConfigActions = __webpack_require__(2);
 
 	/**
 	 * store
 	 */
-	window.ConfigStore = __webpack_require__(14);
+	window.ConfigStore = __webpack_require__(8);
 
 	//获取url参数数组
 	window.get = function (url) {
@@ -156,12 +144,12 @@
 	};
 
 /***/ },
-/* 8 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(9);
+	var AppDispatcher = __webpack_require__(3);
 
 	var ConfigActions = {
 
@@ -195,7 +183,7 @@
 	module.exports = ConfigActions;
 
 /***/ },
-/* 9 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -213,12 +201,12 @@
 	 * A singleton that operates as the central hub for application updates.
 	 */
 
-	var Dispatcher = __webpack_require__(10).Dispatcher;
+	var Dispatcher = __webpack_require__(4).Dispatcher;
 
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 10 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -232,10 +220,10 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(11);
+	module.exports.Dispatcher = __webpack_require__(5);
 
 /***/ },
-/* 11 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -261,7 +249,7 @@
 	  }
 	}
 
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(7);
 
 	var _prefix = 'ID_';
 
@@ -473,10 +461,10 @@
 	}();
 
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 12 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -642,7 +630,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -694,17 +682,17 @@
 	};
 
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 14 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(9);
-	var EventEmitter = __webpack_require__(15).EventEmitter;
-	var assign = __webpack_require__(16);
+	var AppDispatcher = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(9).EventEmitter;
+	var assign = __webpack_require__(10);
 
 	var CHANGE_EVENT = 'change';
 
@@ -784,7 +772,7 @@
 	}
 
 /***/ },
-/* 15 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1062,7 +1050,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1150,15 +1138,15 @@
 	};
 
 /***/ },
-/* 17 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Layout = __webpack_require__(18);
-	var Nomatch = __webpack_require__(19);
-	var Home = __webpack_require__(20);
-	var Post = __webpack_require__(21);
+	var Layout = __webpack_require__(12);
+	var Nomatch = __webpack_require__(13);
+	var Home = __webpack_require__(14);
+	var Post = __webpack_require__(15);
 
 	var Temp = {
 	    Layout: Layout,
@@ -1169,7 +1157,7 @@
 	module.exports = Temp;
 
 /***/ },
-/* 18 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1244,7 +1232,7 @@
 	module.exports = Layout;
 
 /***/ },
-/* 19 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1281,7 +1269,7 @@
 	module.exports = Nomatch;
 
 /***/ },
-/* 20 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1340,7 +1328,7 @@
 	module.exports = Home;
 
 /***/ },
-/* 21 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
