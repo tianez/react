@@ -33,7 +33,7 @@ module.exports = {
             }, { //图片
                 test: /\.(png|jpg)$/,
                 // loader: 'url?limit=25000',
-                loader: 'url?limit=50&name=images/[name].[ext]',
+                loader: 'url?limit=25000&name=images/[name].[ext]',
 
             }]
     },

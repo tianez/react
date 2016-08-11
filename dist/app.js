@@ -46,8 +46,9 @@
 
 	'use strict';
 
-	__webpack_require__(1);
+	__webpack_require__(2);
 
+	__webpack_require__(7);
 	/**
 	 * 路由
 	 */
@@ -60,7 +61,7 @@
 	var hashHistory = _ReactRouter.hashHistory;
 	var browserHistory = _ReactRouter.browserHistory;
 
-	var _require = __webpack_require__(11);
+	var _require = __webpack_require__(17);
 
 	var Layout = _require.Layout;
 	var Nomatch = _require.Nomatch;
@@ -89,7 +90,18 @@
 	ReactDOM.render(routers, document.getElementById('app'));
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97,12 +109,12 @@
 	 * action
 	 */
 
-	window.ConfigActions = __webpack_require__(2);
+	window.ConfigActions = __webpack_require__(8);
 
 	/**
 	 * store
 	 */
-	window.ConfigStore = __webpack_require__(8);
+	window.ConfigStore = __webpack_require__(14);
 
 	//获取url参数数组
 	window.get = function (url) {
@@ -144,12 +156,12 @@
 	};
 
 /***/ },
-/* 2 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(3);
+	var AppDispatcher = __webpack_require__(9);
 
 	var ConfigActions = {
 
@@ -183,7 +195,7 @@
 	module.exports = ConfigActions;
 
 /***/ },
-/* 3 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -201,12 +213,12 @@
 	 * A singleton that operates as the central hub for application updates.
 	 */
 
-	var Dispatcher = __webpack_require__(4).Dispatcher;
+	var Dispatcher = __webpack_require__(10).Dispatcher;
 
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 4 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -220,10 +232,10 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(5);
+	module.exports.Dispatcher = __webpack_require__(11);
 
 /***/ },
-/* 5 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -249,7 +261,7 @@
 	  }
 	}
 
-	var invariant = __webpack_require__(7);
+	var invariant = __webpack_require__(13);
 
 	var _prefix = 'ID_';
 
@@ -461,10 +473,10 @@
 	}();
 
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 6 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -630,7 +642,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -682,17 +694,17 @@
 	};
 
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ },
-/* 8 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(3);
-	var EventEmitter = __webpack_require__(9).EventEmitter;
-	var assign = __webpack_require__(10);
+	var AppDispatcher = __webpack_require__(9);
+	var EventEmitter = __webpack_require__(15).EventEmitter;
+	var assign = __webpack_require__(16);
 
 	var CHANGE_EVENT = 'change';
 
@@ -772,7 +784,7 @@
 	}
 
 /***/ },
-/* 9 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1050,7 +1062,7 @@
 	}
 
 /***/ },
-/* 10 */
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1138,15 +1150,15 @@
 	};
 
 /***/ },
-/* 11 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Layout = __webpack_require__(12);
-	var Nomatch = __webpack_require__(13);
-	var Home = __webpack_require__(14);
-	var Post = __webpack_require__(15);
+	var Layout = __webpack_require__(18);
+	var Nomatch = __webpack_require__(19);
+	var Home = __webpack_require__(20);
+	var Post = __webpack_require__(21);
 
 	var Temp = {
 	    Layout: Layout,
@@ -1157,7 +1169,7 @@
 	module.exports = Temp;
 
 /***/ },
-/* 12 */
+/* 18 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1232,34 +1244,44 @@
 	module.exports = Layout;
 
 /***/ },
-/* 13 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	var Nomatch = React.createClass({
-	    displayName: 'Nomatch',
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	    render: function render() {
-	        return React.createElement(
-	            'section',
-	            { className: 'warp' },
-	            React.createElement(
-	                'section',
-	                { className: 'container' },
-	                React.createElement(
-	                    'h3',
-	                    { className: 'jumbotron-heading' },
-	                    '没有发现对应的页面！'
-	                )
-	            )
-	        );
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Nomatch = function (_React$Component) {
+	    _inherits(Nomatch, _React$Component);
+
+	    function Nomatch() {
+	        _classCallCheck(this, Nomatch);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Nomatch).apply(this, arguments));
 	    }
-	});
+
+	    _createClass(Nomatch, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('div', {
+	                className: 'warp'
+	            }, '没有发现对应的页面！');
+	        }
+	    }]);
+
+	    return Nomatch;
+	}(React.Component);
+
 	module.exports = Nomatch;
 
 /***/ },
-/* 14 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1318,7 +1340,7 @@
 	module.exports = Home;
 
 /***/ },
-/* 15 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';

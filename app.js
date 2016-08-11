@@ -1,5 +1,5 @@
 'use strict'
-
+// import './less/style.less'
 require('./global')
 /**
  * 路由
