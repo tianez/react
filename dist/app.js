@@ -45,10 +45,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	// import './less/style.less'
 
-	__webpack_require__(3);
-
-	__webpack_require__(7);
+	__webpack_require__(1);
 	/**
 	 * 路由
 	 */
@@ -62,7 +61,7 @@
 	var hashHistory = _ReactRouter.hashHistory;
 	var browserHistory = _ReactRouter.browserHistory;
 
-	var _require = __webpack_require__(17);
+	var _require = __webpack_require__(11);
 
 	var Layout = _require.Layout;
 	var Nomatch = _require.Nomatch;
@@ -91,18 +90,7 @@
 	ReactDOM.render(routers, document.getElementById('app'));
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -110,12 +98,12 @@
 	 * action
 	 */
 
-	window.ConfigActions = __webpack_require__(8);
+	window.ConfigActions = __webpack_require__(2);
 
 	/**
 	 * store
 	 */
-	window.ConfigStore = __webpack_require__(14);
+	window.ConfigStore = __webpack_require__(8);
 
 	//获取url参数数组
 	window.get = function (url) {
@@ -157,12 +145,12 @@
 	};
 
 /***/ },
-/* 8 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(9);
+	var AppDispatcher = __webpack_require__(3);
 
 	var ConfigActions = {
 
@@ -196,7 +184,7 @@
 	module.exports = ConfigActions;
 
 /***/ },
-/* 9 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -214,12 +202,12 @@
 	 * A singleton that operates as the central hub for application updates.
 	 */
 
-	var Dispatcher = __webpack_require__(10).Dispatcher;
+	var Dispatcher = __webpack_require__(4).Dispatcher;
 
 	module.exports = new Dispatcher();
 
 /***/ },
-/* 10 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -233,10 +221,10 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(11);
+	module.exports.Dispatcher = __webpack_require__(5);
 
 /***/ },
-/* 11 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -262,7 +250,7 @@
 	  }
 	}
 
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(7);
 
 	var _prefix = 'ID_';
 
@@ -474,10 +462,10 @@
 	}();
 
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 12 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -643,7 +631,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -695,17 +683,17 @@
 	};
 
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 14 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var AppDispatcher = __webpack_require__(9);
-	var EventEmitter = __webpack_require__(15).EventEmitter;
-	var assign = __webpack_require__(16);
+	var AppDispatcher = __webpack_require__(3);
+	var EventEmitter = __webpack_require__(9).EventEmitter;
+	var assign = __webpack_require__(10);
 
 	var CHANGE_EVENT = 'change';
 
@@ -785,7 +773,7 @@
 	}
 
 /***/ },
-/* 15 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1063,7 +1051,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1151,15 +1139,15 @@
 	};
 
 /***/ },
-/* 17 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Layout = __webpack_require__(18);
-	var Nomatch = __webpack_require__(19);
-	var Home = __webpack_require__(20);
-	var Post = __webpack_require__(28);
+	var Layout = __webpack_require__(12);
+	var Nomatch = __webpack_require__(13);
+	var Home = __webpack_require__(14);
+	var Post = __webpack_require__(22);
 
 	var Temp = {
 	    Layout: Layout,
@@ -1170,7 +1158,7 @@
 	module.exports = Temp;
 
 /***/ },
-/* 18 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1245,7 +1233,7 @@
 	module.exports = Layout;
 
 /***/ },
-/* 19 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1282,7 +1270,7 @@
 	module.exports = Nomatch;
 
 /***/ },
-/* 20 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1295,7 +1283,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _require = __webpack_require__(21);
+	var _require = __webpack_require__(15);
 
 	var Form = _require.Form;
 	var Input = _require.Input;
@@ -1329,7 +1317,7 @@
 	            return React.createElement('div', {
 	                className: 'form-group'
 	            }, React.createElement('div', {
-	                className: 'form-control'
+	                className: 'form-control animated bounceInRight'
 	            }, React.createElement('audio', {
 	                ref: 'audio',
 	                src: '1.mp3',
@@ -1337,7 +1325,7 @@
 	                loop: 'loop',
 	                autoPlay: false
 	            }, '亲 您的浏览器不支持html5的audio标签'), React.createElement(Form, {
-	                legend: '表单'
+	                legend: '表单2'
 	            }, React.createElement(Input))));
 	        }
 	    }]);
@@ -1348,14 +1336,14 @@
 	module.exports = Home;
 
 /***/ },
-/* 21 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Form = __webpack_require__(22);
-	var Input = __webpack_require__(25);
-	var Tab = __webpack_require__(27);
+	var Form = __webpack_require__(16);
+	var Input = __webpack_require__(19);
+	var Tab = __webpack_require__(21);
 
 	var Forms = {
 	    Form: Form,
@@ -1365,7 +1353,7 @@
 	module.exports = Forms;
 
 /***/ },
-/* 22 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1378,7 +1366,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var classNames = __webpack_require__(23);
+	var classNames = __webpack_require__(17);
 
 	var Form = function (_React$Component) {
 	    _inherits(Form, _React$Component);
@@ -1422,7 +1410,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 23 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -1468,7 +1456,7 @@
 
 		if (typeof module !== 'undefined' && module.exports) {
 			module.exports = classNames;
-		} else if ("function" === 'function' && _typeof(__webpack_require__(24)) === 'object' && __webpack_require__(24)) {
+		} else if ("function" === 'function' && _typeof(__webpack_require__(18)) === 'object' && __webpack_require__(18)) {
 			// register as 'classnames', consistent with npm package name
 			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 				return classNames;
@@ -1479,7 +1467,7 @@
 	})();
 
 /***/ },
-/* 24 */
+/* 18 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -1487,7 +1475,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 25 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1500,8 +1488,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var classNames = __webpack_require__(23);
-	var FormGroup = __webpack_require__(26);
+	var classNames = __webpack_require__(17);
+	var FormGroup = __webpack_require__(20);
 
 	var Input = function (_React$Component) {
 	    _inherits(Input, _React$Component);
@@ -1619,7 +1607,7 @@
 	module.exports = Input;
 
 /***/ },
-/* 26 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1632,7 +1620,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var classNames = __webpack_require__(23);
+	var classNames = __webpack_require__(17);
 
 	var FormGroup = function (_React$Component) {
 	    _inherits(FormGroup, _React$Component);
@@ -1667,7 +1655,7 @@
 	module.exports = FormGroup;
 
 /***/ },
-/* 27 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1693,7 +1681,7 @@
 	                top: 0,
 	                left: 0
 	            },
-	            dot: 1
+	            dot: 0
 	        };
 	        _this.autoplayTimer = null;
 	        return _this;
@@ -1702,18 +1690,34 @@
 	    _createClass(Tab, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            // this.autoplay()
+	            if (this.props.children && this.props.children.length) {
+	                // this.autoplay()
+	            }
 	        }
 	    }, {
 	        key: 'autoplay',
 	        value: function autoplay() {
-	            clearTimeout(this.autoplayTimer);
-	            var dot = this.state.dot;
+	            clearInterval(this.autoplayTimer);
+	            var length = this.props.children.length - 1;
 	            this.autoplayTimer = setInterval(function () {
-	                var active = document.getElementsByClassName('active');
-	                var pre = document.getElementsByClassName('pre');
-	                var next = document.getElementsByClassName('next');
-	            }, 1000);
+	                var dot = this.state.dot;
+	                if (dot < length) {
+	                    dot += 1;
+	                } else {
+	                    dot = 0;
+	                }
+	                this.setState({
+	                    dot: dot
+	                });
+	                // let active = document.getElementsByClassName('active')
+	                // let pre = document.getElementsByClassName('pre')
+	                // let next = document.getElementsByClassName('next')
+	            }.bind(this), 1000);
+	        }
+	    }, {
+	        key: 'pause',
+	        value: function pause() {
+	            clearInterval(this.autoplayTimer);
 	        }
 	    }, {
 	        key: '_onClick',
@@ -1756,12 +1760,10 @@
 	            console.log('拖动');
 	            console.log(this.state.x);
 	            console.log(e.clientX);
-	            alert(e.clientX);
 	            if (e.clientX == 0) {
 	                return;
 	            }
 	            var left = -(this.state.x - e.clientX) + 'px';
-	            alert(left);
 	            console.log(left);
 	            e.target.style.left = left;
 	        }
@@ -1790,26 +1792,50 @@
 	    }, {
 	        key: 'onTouchStart',
 	        value: function onTouchStart(e) {
+	            e.target.style.transition = "all 0s";
+	            console.log(e.touches);
 	            this.setState({
 	                mx: e.touches[0].pageX
 	            });
+	            var point = e.touches ? e.touches[0] : e;
+	            this.startX = point.pageX;
+	            this.startY = point.pageY;
 	        }
 	    }, {
 	        key: 'onTouchMove',
 	        value: function onTouchMove(e) {
-	            // alert(e.touches[0].pageX)
+	            var me = e.touches[0].pageX;
+	            this.setState({
+	                me: me
+	            });
+	            var left = -(this.state.mx - me) + 'px';
+	            // console.log(left)
+	            e.target.style.left = left;
 	        }
 	    }, {
 	        key: 'onTouchEnd',
 	        value: function onTouchEnd(e) {
-	            alert(12);
-	            alert(e.TouchList);
-	            alert(123);
+	            console.log(e);
+	            console.log(e.altKey);
+	            var width = e.target.getBoundingClientRect().width;
+	            var w = width / 2;
+	            var left = this.state.mx - this.state.me;
+	            if (left > w) {
+	                e.target.style.transition = "all .6s";
+	                e.target.style.left = -width + 'px';
+	            } else if (-left > w) {
+	                e.target.style.transition = "all .6s";
+	                e.target.style.left = width + 'px';
+	            } else {
+	                e.target.style.transition = "all .6s";
+	                e.target.style.left = 0;
+	            }
 	        }
 	    }, {
 	        key: 'onTouchCancel',
 	        value: function onTouchCancel(e) {
-	            alert(1);
+	            this.onTouchEnd();
+	            console.log(e);
 	        }
 	    }, {
 	        key: 'render',
@@ -1851,9 +1877,9 @@
 	            }, childs.map(function (child, index) {
 	                var cur = '';
 	                if (index == dot) {
-	                    cur = ' active';
+	                    cur = ' active  animated slideInRight';
 	                } else if (index == dot - 1) {
-	                    cur = ' pre';
+	                    cur = ' pre  animated slideOutLeft';
 	                } else if (index == dot - 1) {
 	                    cur = ' next';
 	                }
@@ -1872,7 +1898,13 @@
 	                    onTouchEnd: this.onTouchEnd.bind(this),
 	                    onTouchCancel: this.onTouchCancel.bind(this)
 	                }, child.props.children);
-	            }.bind(this))));
+	            }.bind(this))), React.createElement('div', {
+	                className: 'dd',
+	                onClick: this.pause.bind(this)
+	            }, '暂停'), React.createElement('div', {
+	                className: 'dd',
+	                onClick: this.autoplay.bind(this)
+	            }, 'bofang'));
 	        }
 	    }]);
 
@@ -1886,7 +1918,7 @@
 	module.exports = Tab;
 
 /***/ },
-/* 28 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1899,7 +1931,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _require = __webpack_require__(21);
+	var _require = __webpack_require__(15);
 
 	var Tab = _require.Tab;
 
@@ -1935,10 +1967,10 @@
 	            }, React.createElement('div', {
 	                className: 'form-control',
 	                title: 'title'
-	            }, 'sdsdsdsds'), React.createElement('div', {
+	            }, '1111111111111111111111111'), React.createElement('div', {
 	                className: 'form-control',
 	                title: 'title22'
-	            }, 'sdsdsdsds22222222222'), React.createElement('div', {
+	            }, '2222222222222222222222'), React.createElement('div', {
 	                className: 'form-control',
 	                title: 'title22'
 	            }, '333333333333333333333333'), React.createElement('div', {

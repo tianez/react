@@ -31,13 +31,13 @@ class Post extends React.Component {
                         className: 'form-control',
                         title: 'title'
                     },
-                        'sdsdsdsds'
+                        '1111111111111111111111111'
                     ),
                     React.createElement('div', {
                         className: 'form-control',
                         title: 'title22'
                     },
-                        'sdsdsdsds22222222222'
+                        '2222222222222222222222'
                     ),
                     React.createElement('div', {
                         className: 'form-control',

@@ -16,6 +16,7 @@ gulp.task("webpack", function () {
     return gulp.src('./app.js')
         .pipe(webpack(webpackConfig))
         .pipe(gulp.dest('./dist/'))
+         .pipe(connect.reload())
 })
 
 gulp.task('min-css', function () {
@@ -63,6 +64,7 @@ gulp.task('connect', function () {
 
 gulp.task('watch', function () {
     gulp.watch(['./less/*.less'], ['less'])
+    gulp.watch(['./pages/*.js','./components/**/*.js'], ['webpack'])
 })
 
 gulp.task('default', ['connect', 'watch'])

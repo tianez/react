@@ -122,6 +122,7 @@ body a {
 }
 .tab .tab-cards2 {
   position: relative;
+  height: 200px;
 }
 .tab .tab-cards2 .tab-card2 {
   position: absolute;
@@ -135,6 +136,10 @@ body a {
   line-height: 200px;
   font-size: 36px;
   text-align: center;
+}
+.tab .tab-cards2 .animated {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
 }
 .tab .tab-cards2 .active {
   background: #00f;

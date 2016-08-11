@@ -24,7 +24,7 @@ class Home extends React.Component {
                 className: 'form-group'
             },
                 React.createElement('div', {
-                    className: 'form-control'
+                    className: 'form-control animated bounceInRight'
                 },
                     React.createElement('audio', {
                         ref: 'audio',
@@ -34,7 +34,7 @@ class Home extends React.Component {
                         autoPlay: false
                     }, '亲 您的浏览器不支持html5的audio标签'),
                     React.createElement(Form, {
-                        legend: '表单',
+                        legend: '表单2',
                     },
                         React.createElement(Input)
                     )

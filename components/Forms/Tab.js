@@ -1,28 +1,46 @@
 'use strict'
 
 class Tab extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = ({
             dotstyle: {
                 top: 0,
                 left: 0,
             },
-            dot: 1
+            dot: 0
         })
+        if (props.children && props.children.length) {
+
+            this.length = this.props.children.length
+        }
         this.autoplayTimer = null
     }
     componentDidMount() {
-        // this.autoplay()
+        if (this.props.children && this.props.children.length) {
+            // this.autoplay()
+        }
     }
     autoplay() {
-        clearTimeout(this.autoplayTimer);
-        let dot = this.state.dot
-        this.autoplayTimer = setInterval(function () {
-            let active = document.getElementsByClassName('active')
-            let pre = document.getElementsByClassName('pre')
-            let next = document.getElementsByClassName('next')
-        }, 1000);
+        clearInterval(this.autoplayTimer);
+        let length = this.length - 1
+        this.autoplayTimer = setInterval(function() {
+            let dot = this.state.dot
+            if (dot < length) {
+                dot += 1
+            } else {
+                dot = 0
+            }
+            this.setState({
+                    dot: dot
+                })
+                // let active = document.getElementsByClassName('active')
+                // let pre = document.getElementsByClassName('pre')
+                // let next = document.getElementsByClassName('next')
+        }.bind(this), 1000);
+    }
+    pause() {
+        clearInterval(this.autoplayTimer);
     }
     _onClick(index) {
         this.setState({
@@ -44,8 +62,8 @@ class Tab extends React.Component {
     }
     onDragStart(e) {
         console.log('开始拖动')
-        // alert('开始拖动')
-        // console.log(e.clientX)
+            // alert('开始拖动')
+            // console.log(e.clientX)
         console.log(e.target.getBoundingClientRect().left)
         this.setState({
             x: e.clientX
@@ -55,12 +73,10 @@ class Tab extends React.Component {
         console.log('拖动')
         console.log(this.state.x)
         console.log(e.clientX)
-        alert(e.clientX)
         if (e.clientX == 0) {
             return
         }
         let left = -(this.state.x - e.clientX) + 'px'
-        alert(left)
         console.log(left)
         e.target.style.left = left
     }
@@ -85,23 +101,53 @@ class Tab extends React.Component {
         console.log(e.target.getBoundingClientRect().width)
     }
     onTouchStart(e) {
-        this.setState({
-            mx: e.touches[0].pageX
-        })
+        e.target.style.transition = "all 0s"
+        let point = e.touches ? e.touches[0] : e;
+        this.startX = point.pageX;
+        this.startY = point.pageY;
     }
     onTouchMove(e) {
-        // alert(e.touches[0].pageX)
+        e.preventDefault();
+        let point = e.touches ? e.touches[0] : e;
+        let deltaX = point.pageX - this.startX;
+        let deltaY = point.pageY - this.startY;
+        this.endX = point.pageX;
+        this.endY = point.pageY;
+        let left = deltaX + 'px'
+        e.target.style.left = left
     }
     onTouchEnd(e) {
-        alert(12)
-        alert(e.TouchList)
-        alert(123)
+        let width = e.target.getBoundingClientRect().width
+        let w = width / 2
+        let left = this.startX - this.endX
+        if (left > w && this.state.dot < this.length - 1) {
+            e.target.style.transition = "all .6s"
+            e.target.style.left = (-width + 'px')
+            setTimeout(function() {
+                this.setState({
+                    dot: this.state.dot + 1
+                })
+            }.bind(this), 600)
+        } else if (-left > w && this.state.dot != 0) {
+            e.target.style.transition = "all .6s"
+            e.target.style.left = (width + 'px')
+            setTimeout(function() {
+                this.setState({
+                    dot: this.state.dot - 1
+                })
+            }.bind(this), 600)
+        } else {
+            e.target.style.transition = "all .6s"
+            e.target.style.left = 0
+        }
     }
     onTouchCancel(e) {
-        alert(1)
+        this.onTouchEnd()
+        console.log(e);
     }
     render() {
         let dot = this.state.dot
+        console.log(dot);
         let childs = []
         if (this.props.children) {
             if (this.props.children.length) {
@@ -112,12 +158,12 @@ class Tab extends React.Component {
         }
         return (
             React.createElement('div', {
-                className: 'tab'
-            },
-                React.createElement('div', {
-                    className: 'tab-cards'
+                    className: 'tab'
                 },
-                    childs.map(function (child, index) {
+                React.createElement('div', {
+                        className: 'tab-cards'
+                    },
+                    childs.map(function(child, index) {
                         let active = ''
                         if (index == dot) {
                             active = ' active'
@@ -127,10 +173,10 @@ class Tab extends React.Component {
                             active = ' next'
                         }
                         return React.createElement('div', {
-                            key: index,
-                            onClick: this._onClick.bind(this, index),
-                            className: 'tab-card' + active
-                        },
+                                key: index,
+                                onClick: this._onClick.bind(this, index),
+                                className: 'tab-card' + active
+                            },
                             child.props.title
                         )
                     }.bind(this)),
@@ -142,36 +188,44 @@ class Tab extends React.Component {
                     })
                 ),
                 React.createElement('div', {
-                    className: 'tab-cards2'
-                },
-                    childs.map(function (child, index) {
+                        className: 'tab-cards2'
+                    },
+                    childs.map(function(child, index) {
                         let cur = ''
                         if (index == dot) {
-                            cur = ' active'
+                            cur = ' active  animated slideInRight'
                         } else if (index == dot - 1) {
-                            cur = ' pre'
-                        } else if (index == dot - 1) {
+                            cur = ' pre  animated slideOutLeft'
+                        } else if (index == dot + 1) {
                             cur = ' next'
                         }
                         return React.createElement('div', {
-                            key: index,
-                            draggable: true,
-                            className: 'tab-card2 ' + cur,
-                            onMouseDown: this.onMouseDown.bind(this),
-                            // onMouseMove: this.onMouseMove.bind(this),
-                            onDragStart: this.onDragStart.bind(this),
-                            onDrag: this.onDrag.bind(this),
-                            onDragOver: this.onDragOver.bind(this),
+                                key: index,
+                                draggable: true,
+                                className: 'tab-card2 ' + cur,
+                                onMouseDown: this.onMouseDown.bind(this),
+                                // onMouseMove: this.onMouseMove.bind(this),
+                                onDragStart: this.onDragStart.bind(this),
+                                onDrag: this.onDrag.bind(this),
+                                onDragOver: this.onDragOver.bind(this),
 
-                            onTouchStart: this.onTouchStart.bind(this),
-                            onTouchMove: this.onTouchMove.bind(this),
-                            onTouchEnd: this.onTouchEnd.bind(this),
-                            onTouchCancel: this.onTouchCancel.bind(this),
-                        },
+                                onTouchStart: this.onTouchStart.bind(this),
+                                onTouchMove: this.onTouchMove.bind(this),
+                                onTouchEnd: this.onTouchEnd.bind(this),
+                                onTouchCancel: this.onTouchCancel.bind(this),
+                            },
                             child.props.children
                         )
                     }.bind(this))
-                )
+                ),
+                React.createElement('div', {
+                    className: 'dd',
+                    onClick: this.pause.bind(this)
+                }, '暂停'),
+                React.createElement('div', {
+                    className: 'dd',
+                    onClick: this.autoplay.bind(this)
+                }, 'bofang')
             )
         )
     }
