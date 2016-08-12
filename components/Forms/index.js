@@ -1,11 +1,11 @@
 'use strict'
 const Form = require('./Form')
 const Input = require('./Input')
-const Tab = require('./Tab')
+const Swiper = require('./Swiper')
 
 var Forms = {
     Form: Form,
     Input: Input,
-    Tab: Tab,
+    Swiper: Swiper,
 }
 module.exports = Forms

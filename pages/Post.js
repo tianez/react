@@ -1,7 +1,7 @@
 'use strict'
 
 const {
-    Tab
+    Swiper
 } = require('../components/Forms')
 
 class Post extends React.Component {
@@ -24,7 +24,7 @@ class Post extends React.Component {
             React.createElement('div', {
                 className: 'form-group'
             },
-                React.createElement(Tab, {
+                React.createElement(Swiper, {
                     className: 'form-control'
                 },
                     React.createElement('div', {

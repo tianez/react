@@ -26,25 +26,30 @@
             line-height: 200px;
             font-size: 36px;
             text-align: center;
+            transition: all .3s;
+            .p {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                color: #fff;
+                font-size: 18px;
+                text-align: center;
+                background: rgba(0, 0, 0, .5);
+            }
         }
-        .animated {
-            -webkit-animation-duration: .3s;
-            animation-duration: .3s;
-        }
-        .active {
-            background: #00f;
-            z-index: 9;
-            transform: translateX(0);
-        }
-        .pre {
-            background: #0f0;
-            z-index: 9;
-            transform: translateX(-100%);
-        }
-        .next {
-            background: #00f;
-            z-index: 9;
-            transform: translateX(100%);
+        .dot {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 0 1.5rem;
+            font-size: 1.6rem;
+            line-height: 40px;
+            color: #fff;
+            height: 40px;
+            z-index: 99;
         }
     }
 }

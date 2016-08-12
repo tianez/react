@@ -64,7 +64,7 @@ gulp.task('connect', function () {
 
 gulp.task('watch', function () {
     gulp.watch(['./less/*.less'], ['less'])
-    gulp.watch(['./pages/*.js','./components/**/*.js'], ['webpack'])
+    gulp.watch(['./app.js','./pages/*.js','./components/**/*.js'], ['webpack'])
 })
 
 gulp.task('default', ['connect', 'watch'])

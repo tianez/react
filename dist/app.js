@@ -1671,10 +1671,10 @@
 	var Tab = function (_React$Component) {
 	    _inherits(Tab, _React$Component);
 
-	    function Tab() {
+	    function Tab(props) {
 	        _classCallCheck(this, Tab);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Tab).call(this));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Tab).call(this, props));
 
 	        _this.state = {
 	            dotstyle: {
@@ -1683,6 +1683,10 @@
 	            },
 	            dot: 0
 	        };
+	        if (props.children && props.children.length) {
+
+	            _this.length = _this.props.children.length;
+	        }
 	        _this.autoplayTimer = null;
 	        return _this;
 	    }
@@ -1698,7 +1702,7 @@
 	        key: 'autoplay',
 	        value: function autoplay() {
 	            clearInterval(this.autoplayTimer);
-	            var length = this.props.children.length - 1;
+	            var length = this.length - 1;
 	            this.autoplayTimer = setInterval(function () {
 	                var dot = this.state.dot;
 	                if (dot < length) {
@@ -1793,10 +1797,6 @@
 	        key: 'onTouchStart',
 	        value: function onTouchStart(e) {
 	            e.target.style.transition = "all 0s";
-	            console.log(e.touches);
-	            this.setState({
-	                mx: e.touches[0].pageX
-	            });
 	            var point = e.touches ? e.touches[0] : e;
 	            this.startX = point.pageX;
 	            this.startY = point.pageY;
@@ -1804,28 +1804,37 @@
 	    }, {
 	        key: 'onTouchMove',
 	        value: function onTouchMove(e) {
-	            var me = e.touches[0].pageX;
-	            this.setState({
-	                me: me
-	            });
-	            var left = -(this.state.mx - me) + 'px';
-	            // console.log(left)
+	            e.preventDefault();
+	            var point = e.touches ? e.touches[0] : e;
+	            var deltaX = point.pageX - this.startX;
+	            var deltaY = point.pageY - this.startY;
+	            this.endX = point.pageX;
+	            this.endY = point.pageY;
+	            var left = deltaX + 'px';
 	            e.target.style.left = left;
 	        }
 	    }, {
 	        key: 'onTouchEnd',
 	        value: function onTouchEnd(e) {
-	            console.log(e);
-	            console.log(e.altKey);
 	            var width = e.target.getBoundingClientRect().width;
 	            var w = width / 2;
-	            var left = this.state.mx - this.state.me;
-	            if (left > w) {
+	            var left = this.startX - this.endX;
+	            if (left > w && this.state.dot < this.length - 1) {
 	                e.target.style.transition = "all .6s";
 	                e.target.style.left = -width + 'px';
-	            } else if (-left > w) {
+	                setTimeout(function () {
+	                    this.setState({
+	                        dot: this.state.dot + 1
+	                    });
+	                }.bind(this), 600);
+	            } else if (-left > w && this.state.dot != 0) {
 	                e.target.style.transition = "all .6s";
 	                e.target.style.left = width + 'px';
+	                setTimeout(function () {
+	                    this.setState({
+	                        dot: this.state.dot - 1
+	                    });
+	                }.bind(this), 600);
 	            } else {
 	                e.target.style.transition = "all .6s";
 	                e.target.style.left = 0;
@@ -1880,7 +1889,7 @@
 	                    cur = ' active  animated slideInRight';
 	                } else if (index == dot - 1) {
 	                    cur = ' pre  animated slideOutLeft';
-	                } else if (index == dot - 1) {
+	                } else if (index == dot + 1) {
 	                    cur = ' next';
 	                }
 	                return React.createElement('div', {
@@ -1976,7 +1985,7 @@
 	            }, '333333333333333333333333'), React.createElement('div', {
 	                className: 'form-control',
 	                title: 'title22'
-	            }, '4444444444444444444444444444')));
+	            }, '44444444444444444444')));
 	        }
 	    }]);
 
