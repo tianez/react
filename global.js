@@ -9,13 +9,21 @@ window.ConfigActions = require('./flux/ConfigActions')
  */
 window.ConfigStore = require('./flux/ConfigStore')
 
+window.Refresh = function() {
+    ConfigActions.update('refresh', true)
+}
+
+window.Reloaded = function() {
+    ConfigActions.update('refresh', false)
+}
+
 //获取url参数数组
-window.get = function (url) {
+window.get = function(url) {
     if (!url) {
         var url = window.document.location.href.toString();
     }
     var u = url.split("?");
-    if (typeof (u[1]) == "string") {
+    if (typeof(u[1]) == "string") {
         u = u[1].split("&");
         var get = {};
         for (var i in u) {
@@ -29,7 +37,7 @@ window.get = function (url) {
 }
 
 //2个对象合并
-window.extend = function (o, n, override) {
+window.extend = function(o, n, override) {
     for (var p in n)
         if (n.hasOwnProperty(p) && (!o.hasOwnProperty(p) || override)) o[p] = n[p];
 }

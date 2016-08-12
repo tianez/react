@@ -4,6 +4,9 @@ const {
     Swiper
 } = require('../components/Forms')
 
+const {
+    Content
+} = require('../components/Layout')
 class Post extends React.Component {
     constructor() {
         super()
@@ -15,41 +18,47 @@ class Post extends React.Component {
         console.log(res)
         let timestamp = res[0]['_id'];
         // var timestamp = '1425553097';
-        let d = new Date(timestamp);    //根据时间戳生成的时间对象
+        let d = new Date(timestamp); //根据时间戳生成的时间对象
         let date = (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + (d.getDate()) + " " + (d.getHours()) + ":" + (d.getMinutes()) + ":" + (d.getSeconds())
         console.log(date)
+        console.log(ConfigStore.get('refresh'))
+    }
+    componentWillReceiveProps() {
+        console.log(ConfigStore.get('refresh'))
     }
     render() {
         return (
-            React.createElement('div', {
-                className: 'form-group'
-            },
-                React.createElement(Swiper, {
-                    className: 'form-control'
-                },
-                    React.createElement('div', {
-                        className: 'form-control',
-                        title: 'title'
+            React.createElement(Content, {},
+                React.createElement('div', {
+                        className: 'form-group'
                     },
-                        '1111111111111111111111111'
-                    ),
-                    React.createElement('div', {
-                        className: 'form-control',
-                        title: 'title22'
-                    },
-                        '2222222222222222222222'
-                    ),
-                    React.createElement('div', {
-                        className: 'form-control',
-                        title: 'title22'
-                    },
-                        '333333333333333333333333'
-                    ),
-                    React.createElement('div', {
-                        className: 'form-control',
-                        title: 'title22'
-                    },
-                        '44444444444444444444'
+                    React.createElement(Swiper, {
+                            className: 'form-control'
+                        },
+                        React.createElement('div', {
+                                className: 'form-control',
+                                title: 'title'
+                            },
+                            '1111111111111111111111111'
+                        ),
+                        React.createElement('div', {
+                                className: 'form-control',
+                                title: 'title22'
+                            },
+                            '2222222222222222222222'
+                        ),
+                        React.createElement('div', {
+                                className: 'form-control',
+                                title: 'title22'
+                            },
+                            '333333333333333333333333'
+                        ),
+                        React.createElement('div', {
+                                className: 'form-control',
+                                title: 'title22'
+                            },
+                            '44444444444444444444'
+                        )
                     )
                 )
             )

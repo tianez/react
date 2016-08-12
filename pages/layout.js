@@ -2,6 +2,13 @@
 const {
     Link
 } = ReactRouter
+
+const {
+    Header,
+    Content,
+    Footer,
+    Reload
+} = require('../components/Layout')
 class Layout extends React.Component {
     constructor() {
         super()
@@ -24,27 +31,11 @@ class Layout extends React.Component {
     render() {
         return (
             React.createElement('div', {
-                id: 'warper',
-                className: 'pure-g',
-            },
-                React.createElement('section', {
-                    id: 'main'
+                    id: 'warper',
                 },
-                    React.createElement('section', {
-                        id: 'content',
-                        className: 'pure-u-1'
-                    },
-                        React.createElement(Link, {
-                            to: '/',
-                            activeClassName: 'active'
-                        },'首页'),
-                        React.createElement(Link, {
-                            to: 'post',
-                            activeClassName: 'active'
-                        },'post'),
-                        this.props.children
-                    )
-                )
+                React.createElement(Header),
+                this.props.children,
+                React.createElement(Footer)
             )
         )
     }

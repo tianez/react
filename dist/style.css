@@ -101,12 +101,54 @@ hr {
 .f_b {
   font-weight: bold !important;
 }
-body {
-  background: #fff;
+#app,
+#warper {
+  height: 100%;
 }
-body a {
-  font-size: 16px;
-  color: #000;
+.header {
+  height: 4.8rem;
+  line-height: 4.8rem;
+  text-align: center;
+  font-size: 2rem;
+  background: #111;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+#section {
+  padding: 4.8rem 0;
+  height: 100%;
+}
+.content {
+  position: relative;
+  z-index: 999;
+  width: 100%;
+  background: #00f;
+}
+.reload {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 100%;
+  height: 4.8rem;
+  line-height: 4.8rem;
+}
+.footer {
+  height: 4.8rem;
+  line-height: 4.8rem;
+  text-align: center;
+  font-size: 2rem;
+  background: #111;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
 }
 .tab {
   position: relative;
@@ -122,6 +164,7 @@ body a {
 }
 .tab .tab-cards2 {
   position: relative;
+  background: #fff;
   height: 200px;
 }
 .tab .tab-cards2 .tab-card2 {
@@ -130,29 +173,87 @@ body a {
   left: 0;
   width: 100%;
   height: 200px;
+  overflow: hidden;
   display: block;
   background: #f00;
   z-index: 1;
   line-height: 200px;
   font-size: 36px;
   text-align: center;
+  transition: all .3s;
 }
-.tab .tab-cards2 .animated {
-  -webkit-animation-duration: .3s;
-  animation-duration: .3s;
+.tab .tab-cards2 .tab-card2 .p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
 }
-.tab .tab-cards2 .active {
-  background: #00f;
-  z-index: 9;
-  transform: translateX(0);
+.tab .tab-cards2 .dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 1.5rem;
+  font-size: 1.6rem;
+  line-height: 40px;
+  color: #fff;
+  height: 40px;
+  z-index: 99;
 }
-.tab .tab-cards2 .pre {
-  background: #0f0;
-  z-index: 9;
-  transform: translateX(-100%);
+.form-fields {
+  line-height: 60px;
 }
-.tab .tab-cards2 .next {
-  background: #00f;
-  z-index: 9;
-  transform: translateX(100%);
+.form-group {
+  padding: 0 1.5rem;
+  line-height: 3.2rem;
+  position: relative;
+}
+.form-group .form-control {
+  position: relative;
+  width: 100%;
+}
+.form-group .form-control .form-ico {
+  position: absolute;
+  top: 0;
+  right: 4rem;
+  font-size: 1.2rem;
+}
+.form-group .form-control .form-input {
+  outline: none;
+  height: 3.2rem;
+  width: 100%;
+  padding: 0 6rem 0 .6rem;
+}
+.form-group .form-control .form-delete {
+  cursor: pointer;
+  position: absolute;
+  top: .5rem;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  border-radius: 2rem;
+  background: #ddd;
+  color: #000;
+  right: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+html {
+  width: 100%;
+  height: 100%;
+}
+body {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+body a {
+  font-size: 16px;
+  color: #000;
 }
