@@ -36,6 +36,7 @@ class Home extends React.Component {
                     React.createElement(Form, {
                         legend: '表单2',
                     },
+                        React.createElement(Input),
                         React.createElement(Input)
                     )
                 )

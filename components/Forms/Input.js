@@ -27,40 +27,49 @@ class Input extends React.Component {
             value: nextProps.value
         }
     }
-    _onChange(e) {
+    oo(_this, value) {
         let error
         let warning
         let success
-        let value = e.target.value.replace(/(^\s*)|(\s*$)/, "")
+        value = value.replace(/(^\s*)|(\s*$)/, "")
         let length = value.length
-        console.log(value)
-        let help = this.props.help || '请输入' + this.props.title
-        // if (length > 0) {
-        //     if (this.props.min && length < this.props.min) {
-        //         help = '请输入至少' + this.props.min + '个字符！'
-        //         error = true
-        //     } else if (this.props.max && length > this.props.max) {
-        //         help = '请输入至多' + this.props.max + '个字符！'
-        //         error = true
-        //     }
-        //     if (!error) {
-        //         success = true
-        //     }
-        // } else if (this.props.required) {
-        //     help = this.props.title + '必须填写！'
-        //     warning = true
-        // }
-        this.setState({
+        let help = _this.props.help || '请输入' + _this.props.title
+        if (length > 0) {
+            if (_this.props.min && length < _this.props.min) {
+                help = '请输入至少' + _this.props.min + '个字符！'
+                error = true
+            } else if (_this.props.max && length > _this.props.max) {
+                help = '请输入至多' + _this.props.max + '个字符！'
+                error = true
+            }
+            if (!error) {
+                success = true
+            }
+        } else if (_this.props.required) {
+            help = _this.props.title + '必须填写！'
+            warning = true
+        }
+        _this.setState({
             value: value,
             help: help,
             length: length,
-            // error: error,
-            // warning: warning,
-            // success: success,
+            error: error,
+            warning: warning,
+            success: success,
         })
-        if (this.props.onChange) {
-            this.props.onChange(this.props.name, value)
+        if (_this.props.onChange) {
+            _this.props.onChange(_this.props.name, value)
         }
+    }
+    _onChange(e) {
+        let that = this
+        let value = e.target.value
+        this.oo(that, value)
+    }
+    _delete(e) {
+        let that = this
+        let value = ''
+        this.oo(that, value)
     }
     render() {
         let Class = classNames({
@@ -89,7 +98,11 @@ class Input extends React.Component {
                     autoComplete: this.props.autoComplete,
                     value: this.state.value,
                     onChange: this._onChange.bind(this)
-                })
+                }),
+                React.createElement('span', {
+                    className: 'form-delete',
+                    onClick: this._delete.bind(this)
+                }, '×')
             )
         )
     }
@@ -98,6 +111,7 @@ Input.defaultProps = {
     title: '字段名称',
     type: 'text',
     value: 'haode',
+    min: 6,
     autocomplete: 'off',
     required: 'required',
     help: '帮助提示'
