@@ -67,6 +67,7 @@
 	var Nomatch = _require.Nomatch;
 	var Home = _require.Home;
 	var Post = _require.Post;
+	var Post2 = _require.Post2;
 
 
 	function onEnter(nextState, replace) {
@@ -85,7 +86,7 @@
 	    }
 	}
 
-	var routers = React.createElement(Router, { history: hashHistory }, React.createElement(Route, { path: "/", component: Layout }, React.createElement(IndexRoute, { component: Home }), React.createElement(Route, { path: "post", component: Post }), React.createElement(Route, { path: "*", component: Nomatch })));
+	var routers = React.createElement(Router, { history: hashHistory }, React.createElement(Route, { path: "/", component: Layout }, React.createElement(IndexRoute, { component: Home }), React.createElement(Route, { path: "post", component: Post }), React.createElement(Route, { path: "post2", component: Post2 }), React.createElement(Route, { path: "*", component: Nomatch })));
 
 	ReactDOM.render(routers, document.getElementById('app'));
 
@@ -105,12 +106,8 @@
 	 */
 	window.ConfigStore = __webpack_require__(8);
 
-	window.Refresh = function () {
-	    ConfigActions.update('refresh', true);
-	};
-
 	window.Reloaded = function () {
-	    ConfigActions.update('refresh', false);
+	    ConfigActions.update('refresh', true);
 	};
 
 	//获取url参数数组
@@ -151,6 +148,25 @@
 	    }
 	    return theRequest;
 	};
+
+	// 屏幕旋转
+	window.onorientationchange = function () {
+	    switch (window.orientation) {
+	        case -90:
+	        case 90:
+	            alert("横屏:" + window.orientation);
+	        case 0:
+	        case 180:
+	            alert("竖屏:" + window.orientation);
+	            break;
+	    }
+	};
+
+	// audio元素和video元素在ios和andriod中无法自动播放
+	// 应对方案：触屏即播
+	// $('html').one('touchstart', function() {
+	//     audio.play()
+	// })
 
 /***/ },
 /* 2 */
@@ -706,13 +722,8 @@
 	var CHANGE_EVENT = 'change';
 
 	var _todos = {
-	    transition: 'example',
-	    msg: '',
-	    msg_n: 0,
-	    loading: true,
 	    title: '王的理想乡',
-	    pics: ''
-	};
+	    refresh: true };
 
 	var ConfigStore = assign({}, EventEmitter.prototype, {
 
@@ -1153,15 +1164,17 @@
 	'use strict';
 
 	var Layout = __webpack_require__(12);
-	var Nomatch = __webpack_require__(20);
-	var Home = __webpack_require__(21);
-	var Post = __webpack_require__(27);
+	var Nomatch = __webpack_require__(33);
+	var Home = __webpack_require__(34);
+	var Post = __webpack_require__(35);
+	var Post2 = __webpack_require__(41);
 
 	var Temp = {
 	    Layout: Layout,
 	    Nomatch: Nomatch,
 	    Home: Home,
-	    Post: Post
+	    Post: Post,
+	    Post2: Post2
 	};
 	module.exports = Temp;
 
@@ -1219,7 +1232,7 @@
 	    }, {
 	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {
-	            ConfigStore.removeChangeListener(this._onChange.bind(this));
+	            // ConfigStore.removeChangeListener(this._onChange.bind(this))
 	        }
 	    }, {
 	        key: 'render',
@@ -1420,99 +1433,135 @@
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 	var classNames = __webpack_require__(15);
 	var Reload = __webpack_require__(19);
-	var _ReactRouter = ReactRouter;
-	var Link = _ReactRouter.Link;
 
-	var Content = function (_React$Component) {
-	    _inherits(Content, _React$Component);
+	var _require = __webpack_require__(20);
 
-	    function Content() {
-	        _classCallCheck(this, Content);
+	var Grid = _require.Grid;
+	// class Content extends React.Component {
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Content).call(this));
+	var Content = React.createClass({
+	    displayName: 'Content',
 
-	        _this.dX = 0;
-	        _this.dY = 0;
-	        return _this;
+	    // constructor() {
+	    //     super()
+	    //     this.state = {}
+	    //     this.dX = 0
+	    //     this.dY = 0
+	    // }
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            time: ' .3s'
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        this.dX = 0;
+	        this.dY = 0;
+	        this.scroll = true;
+	        return {
+	            loaded: true
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.refs.content.style.minHeight = window.screen.height - 48 * 2 + 'px';
+	    },
+	    onTouchStart: function onTouchStart(e) {
+	        this.refs.content.style.transitionDuration = "0s";
+	        this.refs.reload.style.transitionDuration = "0s";
+	        var point = e.touches ? e.touches[0] : e;
+	        this.startX = point.pageX;
+	        this.startY = point.pageY;
+	    },
+	    onTouchMove: function onTouchMove(e) {
+	        var scrollTop = document.body.scrollTop;
+	        if (scrollTop != 0 && this.scroll) {
+	            return;
+	        }
+	        this.scroll = false;
+	        var point = e.touches ? e.touches[0] : e;
+	        this.endX = point.pageX;
+	        this.endY = point.pageY;
+	        this.deltaX = point.pageX - this.startX;
+	        this.deltaY = point.pageY - this.startY;
+	        if (this.deltaY < 40) {
+	            return;
+	        }
+	        var dY = 48;
+	        var mcontent = this.deltaY - scrollTop;
+	        var mreload = this.deltaY + dY - scrollTop;
+	        document.body.scrollTop = 0;
+	        var refresh = ConfigStore.get('refresh');
+	        if (!refresh) {
+	            mcontent = mcontent + dY;
+	            mreload = mreload + dY;
+	        }
+	        this.refs.content.style.transform = 'translateY(' + mcontent + 'px)';
+	        this.refs.reload.style.transform = 'translateY(' + mreload / 2 + 'px)';
+	    },
+	    onTouchEnd: function onTouchEnd(e) {
+	        // document.body.scrollTop = 0
+	        this.scroll = true;
+	        if (!this.endY) {
+	            return;
+	        }
+	        var refresh = ConfigStore.get('refresh');
+	        this.refs.content.style.transitionDuration = this.props.time;
+	        this.refs.reload.style.transitionDuration = this.props.time;
+	        if (this.deltaY < 0 || this.deltaY < 40 && refresh) {
+	            this.refs.content.style.transform = 'translateY(0)';
+	            this.refs.reload.style.transform = 'translateY(0)';
+	            return;
+	        }
+	        this.refs.content.style.transform = 'translateY(48px)';
+	        this.refs.reload.style.transform = 'translateY(48px)';
+	        if (this.props.reLoad && refresh) {
+	            this.endY = null;
+	            ConfigActions.update('refresh', false);
+	            this.setState({
+	                loaded: false
+	            });
+	            this.props.reLoad();
+	        }
+	    },
+	    onTouchCancel: function onTouchCancel(e) {
+	        this.onTouchEnd;
+	    },
+	    render: function render() {
+	        var refresh = ConfigStore.get('refresh');
+	        var style = {};
+	        if (refresh) {
+	            style = {
+	                transitionDuration: this.props.time,
+	                transform: 'translateY(0)'
+	            };
+	        } else {
+	            style = {
+	                transitionDuration: this.props.time,
+	                transform: 'translateY(48px)'
+	            };
+	        }
+	        return React.createElement('section', {
+	            id: 'section',
+	            className: 'section',
+	            onTouchStart: this.onTouchStart,
+	            onTouchMove: this.onTouchMove,
+	            onTouchEnd: this.onTouchEnd,
+	            onTouchCancel: this.onTouchCancel
+	        }, React.createElement('section', {
+	            ref: 'reload',
+	            id: 'reload',
+	            className: 'reload',
+	            style: style
+	        }, React.createElement(Reload, { refresh: refresh })), React.createElement('section', {
+	            id: 'content',
+	            className: 'content',
+	            ref: 'content',
+	            style: style,
+	            height: this.props.contentheight
+	        }, React.createElement(Grid), this.props.children));
 	    }
-
-	    _createClass(Content, [{
-	        key: 'onTouchStart',
-	        value: function onTouchStart(e) {
-	            this.refs.content.style.transition = "all 0s";
-	            this.refs.reload.style.transition = "all 0s";
-	            var point = e.touches ? e.touches[0] : e;
-	            this.startX = point.pageX;
-	            this.startY = point.pageY;
-	        }
-	    }, {
-	        key: 'onTouchMove',
-	        value: function onTouchMove(e) {
-	            e.preventDefault();
-	            var point = e.touches ? e.touches[0] : e;
-	            this.endX = point.pageX;
-	            this.endY = point.pageY;
-	            this.deltaX = point.pageX - this.startX;
-	            this.deltaY = point.pageY - this.startY;
-	            var mY = this.deltaY + this.dY;
-	            this.refs.content.style.transform = 'translateY(' + mY + 'px)';
-	            this.refs.reload.style.transform = 'translateY(' + mY / 2 + 'px)';
-	        }
-	    }, {
-	        key: 'onTouchEnd',
-	        value: function onTouchEnd(e) {
-	            if (Math.abs(this.deltaY) > 100) {
-	                ConfigActions.update('refresh', true);
-	            }
-	            this.dY = 48;
-	            this.refs.content.style.transition = "all .3s";
-	            this.refs.content.style.transform = 'translateY(' + this.dY + 'px)';
-	            this.refs.reload.style.transition = "all .3s";
-	            this.refs.reload.style.transform = 'translateY(' + this.dY + 'px)';
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return React.createElement('section', {
-	                id: 'section',
-	                className: 'section',
-	                onTouchStart: this.onTouchStart.bind(this),
-	                onTouchMove: this.onTouchMove.bind(this),
-	                onTouchEnd: this.onTouchEnd.bind(this)
-	            }, React.createElement('section', {
-	                ref: 'reload',
-	                id: 'reload',
-	                className: 'reload'
-	            }, React.createElement(Reload)), React.createElement('section', {
-	                id: 'content',
-	                className: 'content',
-	                ref: 'content'
-	            }, React.createElement(Link, {
-	                to: '/',
-	                activeClassName: 'active'
-	            }, '首页'), React.createElement(Link, {
-	                to: 'post',
-	                activeClassName: 'active'
-	            }, 'post'), this.props.children));
-	        }
-	    }]);
-
-	    return Content;
-	}(React.Component);
-
-	Content.defaultProps = {
-	    title: '头部'
-	};
+	});
 	module.exports = Content;
 
 /***/ },
@@ -1534,16 +1583,29 @@
 	var Reload = function (_React$Component) {
 	    _inherits(Reload, _React$Component);
 
-	    function Reload() {
+	    function Reload(props) {
 	        _classCallCheck(this, Reload);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Reload).call(this));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Reload).call(this, props));
+	        // this.state = {
+	        //     refresh: props.refresh
+	        // }
 	    }
 
 	    _createClass(Reload, [{
 	        key: 'render',
 	        value: function render() {
-	            return React.createElement('section', {}, this.props.title);
+	            var text = '加载中';
+	            if (this.props.refresh) {
+	                text = '下拉刷新';
+	            }
+	            console.log(this.props.refresh);
+	            console.log(text);
+	            return React.createElement('section', {
+	                ref: 'loading',
+	                id: 'loading',
+	                className: 'loading'
+	            }, text);
 	        }
 	    }]);
 
@@ -1557,6 +1619,734 @@
 
 /***/ },
 /* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Forms = {
+	    Input: __webpack_require__(21),
+	    Textarea: __webpack_require__(22),
+	    Checkbox: __webpack_require__(23),
+	    Checkbox2: __webpack_require__(24),
+	    Radio: __webpack_require__(25),
+	    Select: __webpack_require__(26),
+	    Select2: __webpack_require__(27),
+	    Select3: __webpack_require__(28),
+	    Switch: __webpack_require__(29),
+	    Uploader: __webpack_require__(30),
+	    Button: __webpack_require__(31),
+	    Grid: __webpack_require__(32)
+	};
+	module.exports = Forms;
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Input = function (_React$Component) {
+	    _inherits(Input, _React$Component);
+
+	    function Input() {
+	        _classCallCheck(this, Input);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Input).call(this));
+	    }
+
+	    _createClass(Input, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' 表单'), React.createElement('div', {
+	                className: 'weui_cells weui_cells_form'
+	            }, React.createElement('div', {
+	                className: 'weui_cell'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_hd'
+	            }, React.createElement('label', {
+	                className: 'weui_label weui_cell_hd'
+	            }, ' qq')), React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('input', {
+	                className: 'weui_input',
+	                type: 'text',
+	                placeholder: '请输入qq号'
+	            })))));
+	        }
+	    }]);
+
+	    return Input;
+	}(React.Component);
+
+	module.exports = Input;
+
+/***/ },
+/* 22 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Textarea = function (_React$Component) {
+	    _inherits(Textarea, _React$Component);
+
+	    function Textarea() {
+	        _classCallCheck(this, Textarea);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Textarea).call(this));
+	    }
+
+	    _createClass(Textarea, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' 文本域'), React.createElement('div', {
+	                className: 'weui_cells weui_cells_form'
+	            }, React.createElement('div', {
+	                className: 'weui_cell'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('textarea', {
+	                className: 'weui_textarea',
+	                rows: 3,
+	                placeholder: '请输入意见反馈'
+	            }), React.createElement('div', {
+	                className: 'weui_textarea_counter'
+	            }, React.createElement('span', {}, 0), '/200')))));
+	        }
+	    }]);
+
+	    return Textarea;
+	}(React.Component);
+
+	module.exports = Textarea;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Checkbox = function (_React$Component) {
+	    _inherits(Checkbox, _React$Component);
+
+	    function Checkbox() {
+	        _classCallCheck(this, Checkbox);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Checkbox).call(this));
+	    }
+
+	    _createClass(Checkbox, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' Checkbox'), React.createElement('div', {
+	                className: 'weui_cells weui_cells_radio'
+	            }, React.createElement('label', {
+	                className: 'weui_cell weui_check_label',
+	                htmlFor: 'x13'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('div', {}, 'cell standard')), React.createElement('div', {
+	                className: 'weui_cell_ft'
+	            }, React.createElement('input', {
+	                className: 'weui_check',
+	                name: 'checkbox',
+	                id: 'x13',
+	                type: 'checkbox',
+	                value: 0
+	            }), React.createElement('span', {
+	                className: 'weui_icon_checked'
+	            }))), React.createElement('label', {
+	                className: 'weui_cell weui_check_label',
+	                htmlFor: 'x14'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('div', {}, 'cell standard')), React.createElement('div', {
+	                className: 'weui_cell_ft'
+	            }, React.createElement('input', {
+	                className: 'weui_check',
+	                name: 'checkbox',
+	                id: 'x14',
+	                type: 'checkbox',
+	                value: 1
+	            }), React.createElement('span', {
+	                className: 'weui_icon_checked'
+	            })))));
+	        }
+	    }]);
+
+	    return Checkbox;
+	}(React.Component);
+
+	module.exports = Checkbox;
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Checkbox2 = function (_React$Component) {
+	    _inherits(Checkbox2, _React$Component);
+
+	    function Checkbox2() {
+	        _classCallCheck(this, Checkbox2);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Checkbox2).call(this));
+	    }
+
+	    _createClass(Checkbox2, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' Checkbox'), React.createElement('div', {
+	                className: 'weui_cells weui_cells_checkbox'
+	            }, React.createElement('label', {
+	                className: 'weui_cell weui_check_label',
+	                htmlFor: 'x15'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_hd'
+	            }, React.createElement('input', {
+	                className: 'weui_check',
+	                name: 'checkbox2',
+	                id: 'x15',
+	                type: 'checkbox',
+	                // checked: 'checked',
+	                value: 0
+	            }), React.createElement('i', {
+	                className: 'weui_icon_checked'
+	            })), React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('p', {}, 'cell standard'))), React.createElement('label', {
+	                className: 'weui_cell weui_check_label',
+	                htmlFor: 'x16'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_hd'
+	            }, React.createElement('input', {
+	                className: 'weui_check',
+	                name: 'checkbox2',
+	                id: 'x16',
+	                type: 'checkbox',
+	                value: 0
+	            }), React.createElement('i', {
+	                className: 'weui_icon_checked'
+	            })), React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('p', {}, 'cell standard')))));
+	        }
+	    }]);
+
+	    return Checkbox2;
+	}(React.Component);
+
+	module.exports = Checkbox2;
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Radio = function (_React$Component) {
+	    _inherits(Radio, _React$Component);
+
+	    function Radio() {
+	        _classCallCheck(this, Radio);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Radio).call(this));
+	    }
+
+	    _createClass(Radio, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' radio'), React.createElement('div', {
+	                className: 'weui_cells weui_cells_radio'
+	            }, React.createElement('label', {
+	                className: 'weui_cell weui_check_label',
+	                htmlFor: 'x11'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('div', {}, 'cell standard')), React.createElement('div', {
+	                className: 'weui_cell_ft'
+	            }, React.createElement('input', {
+	                className: 'weui_check',
+	                name: 'radio1',
+	                id: 'x11',
+	                type: 'radio',
+	                value: 0
+	            }), React.createElement('span', {
+	                className: 'weui_icon_checked'
+	            }))), React.createElement('label', {
+	                className: 'weui_cell weui_check_label',
+	                htmlFor: 'x12'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('div', {}, 'cell standard')), React.createElement('div', {
+	                className: 'weui_cell_ft'
+	            }, React.createElement('input', {
+	                className: 'weui_check',
+	                name: 'radio1',
+	                id: 'x12',
+	                type: 'radio',
+	                value: 1
+	            }), React.createElement('span', {
+	                className: 'weui_icon_checked'
+	            })))));
+	        }
+	    }]);
+
+	    return Radio;
+	}(React.Component);
+
+	module.exports = Radio;
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Select2 = function (_React$Component) {
+	    _inherits(Select2, _React$Component);
+
+	    function Select2() {
+	        _classCallCheck(this, Select2);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Select2).call(this));
+	    }
+
+	    _createClass(Select2, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' 选择'), React.createElement('div', {
+	                className: 'weui_cells'
+	            }, React.createElement('div', {
+	                className: 'weui_cell weui_cell_select'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('select', {
+	                className: 'weui_select',
+	                name: 'select'
+	            }, React.createElement('option', {
+	                value: '1'
+	            }, '微信号'), React.createElement('option', {
+	                value: '2'
+	            }, '+85'))))));
+	        }
+	    }]);
+
+	    return Select2;
+	}(React.Component);
+
+	module.exports = Select2;
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Select2 = function (_React$Component) {
+	    _inherits(Select2, _React$Component);
+
+	    function Select2() {
+	        _classCallCheck(this, Select2);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Select2).call(this));
+	    }
+
+	    _createClass(Select2, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' 选择'), React.createElement('div', {
+	                className: 'weui_cells'
+	            }, React.createElement('div', {
+	                className: 'weui_cell weui_cell_select weui_select_before'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_hd'
+	            }, React.createElement('select', {
+	                className: 'weui_select',
+	                name: 'select2'
+	            }, React.createElement('option', {
+	                value: '1'
+	            }, '+86'), React.createElement('option', {
+	                value: '2'
+	            }, '+85'))), React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('input', {
+	                className: 'weui_input',
+	                type: 'tel',
+	                placeholder: '请输入电话号码'
+	            })))));
+	        }
+	    }]);
+
+	    return Select2;
+	}(React.Component);
+
+	module.exports = Select2;
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Select2 = function (_React$Component) {
+	    _inherits(Select2, _React$Component);
+
+	    function Select2() {
+	        _classCallCheck(this, Select2);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Select2).call(this));
+	    }
+
+	    _createClass(Select2, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' 选择'), React.createElement('div', {
+	                className: 'weui_cells'
+	            }, React.createElement('div', {
+	                className: 'weui_cell weui_cell_select  weui_select_after'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_hd'
+	            }, ' 国家/地区'), React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('select', {
+	                className: 'weui_select',
+	                name: 'select2'
+	            }, React.createElement('option', {
+	                value: '1'
+	            }, '+86'), React.createElement('option', {
+	                value: '2'
+	            }, '+85'))))));
+	        }
+	    }]);
+
+	    return Select2;
+	}(React.Component);
+
+	module.exports = Select2;
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Switch = function (_React$Component) {
+	    _inherits(Switch, _React$Component);
+
+	    function Switch() {
+	        _classCallCheck(this, Switch);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Switch).call(this));
+	    }
+
+	    _createClass(Switch, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' 开关'), React.createElement('div', {
+	                className: 'weui_cells weui_cells_form'
+	            }, React.createElement('div', {
+	                className: 'weui_cell weui_cell_switch'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_hd weui_cell_primary'
+	            }, '声音'), React.createElement('div', {
+	                className: 'weui_cell_ft'
+	            }, React.createElement('input', {
+	                className: 'weui_switch',
+	                type: 'checkbox'
+	            })))));
+	        }
+	    }]);
+
+	    return Switch;
+	}(React.Component);
+
+	module.exports = Switch;
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Input = function (_React$Component) {
+	    _inherits(Input, _React$Component);
+
+	    function Input() {
+	        _classCallCheck(this, Input);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Input).call(this));
+	    }
+
+	    _createClass(Input, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {}, React.createElement('div', {
+	                className: 'weui_cells_title'
+	            }, ' 表单'), React.createElement('div', {
+	                className: 'weui_cells weui_cells_form'
+	            }, React.createElement('div', {
+	                className: 'weui_cell'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, React.createElement('div', {
+	                className: 'weui_uploader'
+	            }, React.createElement('div', {
+	                className: 'weui_uploader_hd weui_cell'
+	            }, React.createElement('div', {
+	                className: 'weui_cell_bd weui_cell_primary'
+	            }, '图片上传'), React.createElement('div', {
+	                className: 'weui_cell_ft'
+	            }, '0/2')), React.createElement('div', {
+	                className: 'weui_uploader_bd'
+	            }, React.createElement('ul', {
+	                className: 'weui_uploader_files'
+	            }, React.createElement('li', {
+	                className: 'weui_uploader_file',
+	                style: {
+	                    backgroundImage: 'url(images/app-icon.png)'
+	                }
+	            }), React.createElement('li', {
+	                className: 'weui_uploader_file weui_uploader_status',
+	                style: {
+	                    backgroundImage: 'url(images/app-icon.png)'
+	                }
+	            }, React.createElement('div', {
+	                className: 'weui_uploader_status_content'
+	            }, React.createElement('i', {
+	                className: 'weui_icon_warn'
+	            }))), React.createElement('li', {
+	                className: 'weui_uploader_file weui_uploader_status',
+	                style: {
+	                    backgroundImage: 'url(images/app-icon.png)'
+	                }
+	            }, React.createElement('div', {
+	                className: 'weui_uploader_status_content'
+	            }, '50%'))), React.createElement('div', {
+	                className: 'weui_uploader_input_wrp'
+	            }, React.createElement('input', {
+	                className: 'weui_uploader_input',
+	                type: 'file',
+	                accept: 'image/*',
+	                multiple: false
+	            }))))))));
+	        }
+	    }]);
+
+	    return Input;
+	}(React.Component);
+
+	module.exports = Input;
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Button = function (_React$Component) {
+	    _inherits(Button, _React$Component);
+
+	    function Button() {
+	        _classCallCheck(this, Button);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Button).call(this));
+	    }
+
+	    _createClass(Button, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('div', {
+	                className: 'button_sp_area'
+	            }, React.createElement('button', {
+	                className: 'weui_btn weui_btn_primary'
+	            }, '按钮'));
+	        }
+	    }]);
+
+	    return Button;
+	}(React.Component);
+
+	module.exports = Button;
+
+/***/ },
+/* 32 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _ReactRouter = ReactRouter;
+	var Link = _ReactRouter.Link;
+
+	var Grid = function (_React$Component) {
+	    _inherits(Grid, _React$Component);
+
+	    function Grid() {
+	        _classCallCheck(this, Grid);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Grid).call(this));
+	    }
+
+	    _createClass(Grid, [{
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement('section', {
+	                className: 'weui_grids'
+	            }, React.createElement(Link, {
+	                className: 'weui_grid',
+	                to: '/',
+	                activeClassName: 'active'
+	            }, React.createElement('div', {
+	                className: 'weui_grid_icon'
+	            }, React.createElement('img', {
+	                src: 'images/icon_nav_button.png'
+	            })), React.createElement('p', {
+	                className: 'weui_grid_label'
+	            }, '首页')), React.createElement(Link, {
+	                className: 'weui_grid',
+	                to: '/post',
+	                activeClassName: 'active'
+	            }, React.createElement('div', {
+	                className: 'weui_grid_icon'
+	            }, React.createElement('img', {
+	                src: 'images/icon_nav_article.png'
+	            })), React.createElement('p', {
+	                className: 'weui_grid_label'
+	            }, 'post')), React.createElement(Link, {
+	                className: 'weui_grid',
+	                to: '/post2',
+	                activeClassName: 'active'
+	            }, React.createElement('div', {
+	                className: 'weui_grid_icon'
+	            }, React.createElement('img', {
+	                src: 'images/icon_nav_button.png'
+	            })), React.createElement('p', {
+	                className: 'weui_grid_label'
+	            }, 'post2')));
+	        }
+	    }]);
+
+	    return Grid;
+	}(React.Component);
+
+	module.exports = Grid;
+
+/***/ },
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1593,10 +2383,14 @@
 	module.exports = Nomatch;
 
 /***/ },
-/* 21 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	// const {
+	//     Form,
+	//     Input
+	// } = require('../components/Forms')
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1606,10 +2400,20 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _require = __webpack_require__(22);
+	var _require = __webpack_require__(20);
 
-	var Form = _require.Form;
 	var Input = _require.Input;
+	var Textarea = _require.Textarea;
+	var Checkbox = _require.Checkbox;
+	var Checkbox2 = _require.Checkbox2;
+	var Radio = _require.Radio;
+	var Select = _require.Select;
+	var Select2 = _require.Select2;
+	var Select3 = _require.Select3;
+	var Switch = _require.Switch;
+	var Uploader = _require.Uploader;
+	var Button = _require.Button;
+	var Grid = _require.Grid;
 
 	var _require2 = __webpack_require__(13);
 
@@ -1621,7 +2425,12 @@
 	    function Home() {
 	        _classCallCheck(this, Home);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Home).call(this));
+
+	        _this.state = {
+	            kk: '33333333333'
+	        };
+	        return _this;
 	    }
 
 	    _createClass(Home, [{
@@ -1639,9 +2448,26 @@
 	            }, false);
 	        }
 	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps() {
+	            console.log(ConfigStore.get('refresh'));
+	        }
+	    }, {
+	        key: 'reLoad',
+	        value: function reLoad() {
+	            setTimeout(function () {
+	                ConfigActions.update('refresh', true);
+	                this.setState({
+	                    kk: 'sdsdsdsd'
+	                });
+	            }.bind(this), 2000);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return React.createElement(Content, {}, React.createElement('div', {
+	            return React.createElement(Content, {
+	                reLoad: this.reLoad.bind(this)
+	            }, React.createElement(Input), React.createElement(Uploader), React.createElement(Switch), React.createElement(Checkbox), React.createElement(Checkbox2), React.createElement(Select), React.createElement(Select2), React.createElement(Select3), React.createElement(Radio), React.createElement(Textarea), React.createElement(Button), React.createElement('div', {
 	                className: 'form-group animated bounceInRight'
 	            }, React.createElement('div', {
 	                className: 'form-control'
@@ -1651,9 +2477,7 @@
 	                controls: 'controls',
 	                loop: 'loop',
 	                autoPlay: false
-	            }, '亲 您的浏览器不支持html5的audio标签'), React.createElement(Form, {
-	                legend: '表单2'
-	            }, React.createElement(Input), React.createElement(Input)))));
+	            }, '亲 您的浏览器不支持html5的audio标签'))));
 	        }
 	    }]);
 
@@ -1663,14 +2487,141 @@
 	module.exports = Home;
 
 /***/ },
-/* 22 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Form = __webpack_require__(23);
-	var Input = __webpack_require__(24);
-	var Swiper = __webpack_require__(26);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _require = __webpack_require__(36);
+
+	var Swiper = _require.Swiper;
+
+	var _require2 = __webpack_require__(13);
+
+	var Content = _require2.Content;
+
+	var Post = function (_React$Component) {
+	    _inherits(Post, _React$Component);
+
+	    function Post() {
+	        _classCallCheck(this, Post);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Post).call(this));
+
+	        _this.state = {
+	            kk: '33333333333'
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Post, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            console.log('0');
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            ConfigActions.update('title', 'post');
+	            // storedb('article').insert({ 'id': 1, 'value': '23232323' })
+	            // let res = storedb('article').find({ 'id': 1 })
+	            // console.log(res)
+	            // let timestamp = res[0]['_id'];
+	            // // var timestamp = '1425553097';
+	            // let d = new Date(timestamp); //根据时间戳生成的时间对象
+	            // let date = (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + (d.getDate()) + " " + (d.getHours()) + ":" + (d.getMinutes()) + ":" + (d.getSeconds())
+	            // console.log(date)
+	            // console.log(ConfigStore.get('refresh'))
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            // if ((nextProps.location.pathname !== this.state.hash) || (nextProps.location.search !== this.state.search)) {
+	            //     this._req(nextProps)
+	            // }
+	        }
+	    }, {
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate(nextProps, nextState) {
+	            if (nextProps.location.search !== this.props.location.search || nextState !== this.state) {
+	                return true;
+	            }
+	            return false;
+	        }
+	    }, {
+	        key: 'componentWillUpdate',
+	        value: function componentWillUpdate(nextProps, nextState) {
+	            // console.log('1');
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate(prevProps, prevState) {
+	            // console.log('2');
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            console.log('3');
+	        }
+	    }, {
+	        key: 'reLoad',
+	        value: function reLoad() {
+	            setTimeout(function () {
+	                Reloaded();
+	                this.setState({
+	                    kk: 'sdsdsdsd2'
+	                });
+	            }.bind(this), 3000);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return React.createElement(Content, {
+	                key: 'post',
+	                nn: 'post',
+	                reLoad: this.reLoad.bind(this)
+	            }, React.createElement('div', {
+	                className: 'form-group'
+	            }, React.createElement(Swiper, {
+	                className: 'form-control'
+	            }, React.createElement('div', {
+	                className: 'form-control',
+	                title: 'title'
+	            }, '1111111111111111111111111'), React.createElement('div', {
+	                className: 'form-control',
+	                title: 'title22'
+	            }, '2222222222222222222'), React.createElement('div', {
+	                className: 'form-control',
+	                title: 'title22'
+	            }, '333333333333333333333333'), React.createElement('div', {
+	                className: 'form-control',
+	                title: 'title22'
+	            }, '44444444444444444444')), this.state.kk));
+	        }
+	    }]);
+
+	    return Post;
+	}(React.Component);
+
+	module.exports = Post;
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Form = __webpack_require__(37);
+	var Input = __webpack_require__(38);
+	var Swiper = __webpack_require__(40);
 
 	var Forms = {
 	    Form: Form,
@@ -1680,7 +2631,7 @@
 	module.exports = Forms;
 
 /***/ },
-/* 23 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1737,7 +2688,7 @@
 	module.exports = Form;
 
 /***/ },
-/* 24 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1751,7 +2702,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var classNames = __webpack_require__(15);
-	var FormGroup = __webpack_require__(25);
+	var FormGroup = __webpack_require__(39);
 
 	var Input = function (_React$Component) {
 	    _inherits(Input, _React$Component);
@@ -1889,7 +2840,7 @@
 	module.exports = Input;
 
 /***/ },
-/* 25 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1937,7 +2888,7 @@
 	module.exports = FormGroup;
 
 /***/ },
-/* 26 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2087,6 +3038,9 @@
 	            this.endY = point.pageY;
 	            var deltaX = point.pageX - this.startX;
 	            var deltaY = point.pageY - this.startY;
+	            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+	                e.stopPropagation();
+	            }
 	            e.target.style.transform = 'translateX(' + deltaX + 'px)';
 	            var dot = this.state.dot;
 	            var width = e.target.getBoundingClientRect().width;
@@ -2245,7 +3199,7 @@
 	module.exports = Tab;
 
 /***/ },
-/* 27 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2258,7 +3212,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _require = __webpack_require__(22);
+	var _require = __webpack_require__(36);
 
 	var Swiper = _require.Swiper;
 
@@ -2278,16 +3232,7 @@
 	    _createClass(Post, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            ConfigActions.update('title', 'post');
-	            storedb('article').insert({ 'id': 1, 'value': '23232323' });
-	            var res = storedb('article').find({ 'id': 1 });
-	            console.log(res);
-	            var timestamp = res[0]['_id'];
-	            // var timestamp = '1425553097';
-	            var d = new Date(timestamp); //根据时间戳生成的时间对象
-	            var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-	            console.log(date);
-	            console.log(ConfigStore.get('refresh'));
+	            ConfigActions.update('title', 'post2');
 	        }
 	    }, {
 	        key: 'componentWillReceiveProps',
@@ -2297,23 +3242,12 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return React.createElement(Content, {}, React.createElement('div', {
-	                className: 'form-group'
-	            }, React.createElement(Swiper, {
-	                className: 'form-control'
+	            return React.createElement(Content, {
+	                key: 'post',
+	                nn: 'post2'
 	            }, React.createElement('div', {
-	                className: 'form-control',
-	                title: 'title'
-	            }, '1111111111111111111111111'), React.createElement('div', {
-	                className: 'form-control',
-	                title: 'title22'
-	            }, '2222222222222222222222'), React.createElement('div', {
-	                className: 'form-control',
-	                title: 'title22'
-	            }, '333333333333333333333333'), React.createElement('div', {
-	                className: 'form-control',
-	                title: 'title22'
-	            }, '44444444444444444444'))));
+	                className: 'form-group'
+	            }, '22222222222222222223'));
 	        }
 	    }]);
 

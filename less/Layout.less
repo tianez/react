@@ -1,5 +1,19 @@
+html,body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    background: #fff;
+    a {
+        font-size: 16px;
+        color: #000;
+    }
+}
+
 #app, #warper {
-    height: 100%;
+    min-height: 100%;
 }
 
 .header {
@@ -18,10 +32,14 @@
 
 #section {
     padding: 4.8rem 0;
-    height: 100%;
+    min-height: 100%;
 }
 
 #content, #reload {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
     transition-property: transform;
 }
 
@@ -31,6 +49,7 @@
     left: 0;
     z-index: 9998;
     width: 100%;
+    z-index: 1;
     #loading {
         height: 4.8rem;
         line-height: 4.8rem;
@@ -42,7 +61,7 @@
     position: relative;
     z-index: 999;
     width: 100%;
-    min-height: 100%;
+    // min-height: 100%;
     background: #fbf9fe;
 }
 

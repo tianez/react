@@ -50,3 +50,22 @@ window.GetRequest = function GetRequest() {
     }
     return theRequest;
 }
+
+// 屏幕旋转
+window.onorientationchange = function() {
+    switch (window.orientation) {
+        case -90:
+        case 90:
+            alert("横屏:" + window.orientation);
+        case 0:
+        case 180:
+            alert("竖屏:" + window.orientation);
+            break;
+    }
+}
+
+// audio元素和video元素在ios和andriod中无法自动播放
+// 应对方案：触屏即播
+// $('html').one('touchstart', function() {
+//     audio.play()
+// })

@@ -1,6 +1,6 @@
 'use strict'
 
-class Input extends React.Component {
+class Select2 extends React.Component {
     constructor() {
         super()
     }
@@ -9,27 +9,35 @@ class Input extends React.Component {
             React.createElement('section', {},
                 React.createElement('div', {
                     className: 'weui_cells_title'
-                }, ' 表单'),
+                }, ' 选择'),
                 React.createElement('div', {
-                        className: 'weui_cells weui_cells_form'
+                        className: 'weui_cells'
                     },
                     React.createElement('div', {
-                            className: 'weui_cell'
+                            className: 'weui_cell weui_cell_select weui_select_before'
                         },
                         React.createElement('div', {
                                 className: 'weui_cell_hd'
                             },
-                            React.createElement('label', {
-                                className: 'weui_label weui_cell_hd'
-                            }, ' qq')
+                            React.createElement('select', {
+                                    className: 'weui_select',
+                                    name: 'select2'
+                                },
+                                React.createElement('option', {
+                                    value: '1'
+                                }, '+86'),
+                                React.createElement('option', {
+                                    value: '2'
+                                }, '+85')
+                            )
                         ),
                         React.createElement('div', {
                                 className: 'weui_cell_bd weui_cell_primary'
                             },
                             React.createElement('input', {
                                 className: 'weui_input',
-                                type: 'text',
-                                placeholder: '请输入qq号'
+                                type: 'tel',
+                                placeholder: '请输入电话号码'
                             })
                         )
                     )
@@ -39,4 +47,4 @@ class Input extends React.Component {
     }
 }
 
-module.exports = Input
+module.exports = Select2

@@ -1,6 +1,6 @@
 'use strict'
 
-class Input extends React.Component {
+class Switch extends React.Component {
     constructor() {
         super()
     }
@@ -9,27 +9,24 @@ class Input extends React.Component {
             React.createElement('section', {},
                 React.createElement('div', {
                     className: 'weui_cells_title'
-                }, ' 表单'),
+                }, ' 开关'),
                 React.createElement('div', {
                         className: 'weui_cells weui_cells_form'
                     },
                     React.createElement('div', {
-                            className: 'weui_cell'
+                            className: 'weui_cell weui_cell_switch'
                         },
                         React.createElement('div', {
-                                className: 'weui_cell_hd'
+                                className: 'weui_cell_hd weui_cell_primary'
                             },
-                            React.createElement('label', {
-                                className: 'weui_label weui_cell_hd'
-                            }, ' qq')
+                            '声音'
                         ),
                         React.createElement('div', {
-                                className: 'weui_cell_bd weui_cell_primary'
+                                className: 'weui_cell_ft'
                             },
                             React.createElement('input', {
-                                className: 'weui_input',
-                                type: 'text',
-                                placeholder: '请输入qq号'
+                                className: 'weui_switch',
+                                type: 'checkbox',
                             })
                         )
                     )
@@ -39,4 +36,4 @@ class Input extends React.Component {
     }
 }
 
-module.exports = Input
+module.exports = Switch
