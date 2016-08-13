@@ -25,17 +25,22 @@ class Home extends React.Component {
             }
         }, false);
     }
+    componentWillReceiveProps() {
+        console.log(ConfigStore.get('refresh'))
+    }
     reLoad() {
         setTimeout(function() {
             ConfigActions.update('refresh', true)
-        }, 3000)
-        this.setState({
-            kk: 'sdsdsdsd'
-        })
+            this.setState({
+                kk: 'sdsdsdsd'
+            })
+        }.bind(this), 2000)
     }
     render() {
         return (
             React.createElement(Content, {
+                    key: 'home',
+                    nn: 'home',
                     reLoad: this.reLoad.bind(this)
                 },
                 React.createElement('div', {

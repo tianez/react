@@ -10,25 +10,59 @@ const {
 class Post extends React.Component {
     constructor() {
         super()
+        this.state = {
+            kk: '33333333333'
+        }
     }
     componentDidMount() {
         ConfigActions.update('title', 'post')
-        storedb('article').insert({ 'id': 1, 'value': '23232323' })
-        let res = storedb('article').find({ 'id': 1 })
-        console.log(res)
-        let timestamp = res[0]['_id'];
-        // var timestamp = '1425553097';
-        let d = new Date(timestamp); //根据时间戳生成的时间对象
-        let date = (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + (d.getDate()) + " " + (d.getHours()) + ":" + (d.getMinutes()) + ":" + (d.getSeconds())
-        console.log(date)
-        console.log(ConfigStore.get('refresh'))
+            // storedb('article').insert({ 'id': 1, 'value': '23232323' })
+            // let res = storedb('article').find({ 'id': 1 })
+            // console.log(res)
+            // let timestamp = res[0]['_id'];
+            // // var timestamp = '1425553097';
+            // let d = new Date(timestamp); //根据时间戳生成的时间对象
+            // let date = (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + (d.getDate()) + " " + (d.getHours()) + ":" + (d.getMinutes()) + ":" + (d.getSeconds())
+            // console.log(date)
+            // console.log(ConfigStore.get('refresh'))
     }
-    componentWillReceiveProps() {
-        console.log(ConfigStore.get('refresh'))
+    componentWillReceiveProps(nextProps) {
+        // if ((nextProps.location.pathname !== this.state.hash) || (nextProps.location.search !== this.state.search)) {
+        //     this._req(nextProps)
+        // }
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log(nextProps);
+        console.log(this.state);
+        if ((nextProps.location.search !== this.props.location.search) || (nextState !== this.state)) {
+            return true
+        }
+        return false
+    }
+    componentWillUpdate(nextProps, nextState) {
+        console.log('1');
+    }
+    componentDidUpdate(prevProps, prevState) {
+        console.log('2');
+    }
+    componentWillUnmount() {
+        console.log('3');
+    }
+    reLoad() {
+        setTimeout(function() {
+            ConfigActions.update('refresh', true)
+            this.setState({
+                kk: 'sdsdsdsd'
+            })
+        }.bind(this), 2000)
     }
     render() {
         return (
-            React.createElement(Content, {},
+            React.createElement(Content, {
+                    key: 'post',
+                    nn: 'post',
+                    reLoad: this.reLoad.bind(this)
+                },
                 React.createElement('div', {
                         className: 'form-group'
                     },
@@ -59,7 +93,8 @@ class Post extends React.Component {
                             },
                             '44444444444444444444'
                         )
-                    )
+                    ),
+                    this.state.kk
                 )
             )
         )

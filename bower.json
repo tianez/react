@@ -1,24 +1,24 @@
 {
-  "name": "myreact",
-  "description": "",
-  "main": "app.js",
-  "authors": [
-    "tianez <saber_tz@163.com>"
-  ],
-  "license": "MIT",
-  "homepage": "",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "font-awesome": "~4.5.0",
-    "pure": "^0.6.0",
-    "storedb": "^0.1.2",
-    "animate.css": "^3.5.2"
-  }
+    "name": "myreact",
+    "description": "",
+    "main": "app.js",
+    "authors": [
+        "tianez <saber_tz@163.com>"
+    ],
+    "license": "MIT",
+    "homepage": "",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "font-awesome": "~4.5.0",
+        "pure": "^0.6.0",
+        "storedb": "^0.1.2",
+        "animate.css": "^3.5.2"
+    }
 }

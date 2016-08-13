@@ -4,11 +4,13 @@ const Layout = require('./Layout')
 const Nomatch = require('./Nomatch')
 const Home = require('./Home')
 const Post = require('./Post')
+const Post2 = require('./Post2')
 
 var Temp = {
     Layout: Layout,
     Nomatch: Nomatch,
     Home: Home,
-    Post: Post
+    Post: Post,
+    Post2: Post2,
 }
 module.exports = Temp

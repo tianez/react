@@ -8,10 +8,11 @@ var CHANGE_EVENT = 'change';
 var _todos = {
     transition: 'example',
     msg: '',
-    msg_n: 0, 
+    msg_n: 0,
     loading: true,
     title: '王的理想乡',
-    pics: ''
+    pics: '',
+    refresh: false
 };
 
 var ConfigStore = assign({}, EventEmitter.prototype, {

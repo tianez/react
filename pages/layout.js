@@ -26,7 +26,7 @@ class Layout extends React.Component {
         ConfigStore.addChangeListener(this._onChange.bind(this))
     }
     componentWillUnmount() {
-        ConfigStore.removeChangeListener(this._onChange.bind(this))
+        // ConfigStore.removeChangeListener(this._onChange.bind(this))
     }
     render() {
         return (
