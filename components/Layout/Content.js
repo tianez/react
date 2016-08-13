@@ -5,121 +5,127 @@ const Reload = require('./Reload')
 const {
     Link
 } = ReactRouter
+
 // class Content extends React.Component {
 const Content = React.createClass({
-        // constructor() {
-        //     super()
-        //     this.state = {}
-        //     this.dX = 0
-        //     this.dY = 0
-        // }
-        getInitialState: function() {
-            this.dX = 0
-            this.dY = 0
-            return {};
-        },
-        _onChange: function() {
-            let refresh = ConfigStore.get('refresh')
-            console.log(refresh + this.props.nn)
-            if (refresh) {
-                this.refs.reload.style.transition = "all 3s"
-                this.refs.reload.style.transform = 'translateX(0)'
-                this.refs.reload.innerHTML = '下拉刷新'
-                this.refs.content.style.transition = "all 3s"
-                this.refs.content.style.transform = 'translateX(0)'
-            }
-        },
-        componentDidMount: function() {
-            ConfigStore.addChangeListener(this._onChange)
-        },
-        componentWillUnmount: function() {
-            console.log('remov' + this.props.nn);
-            ConfigStore.removeChangeListener(this._onChange)
-        },
-        onTouchStart: function(e) {
-            this.refs.content.style.transition = "all 0s"
-            this.refs.reload.style.transition = "all 0s"
-            let point = e.touches ? e.touches[0] : e;
-            this.startX = point.pageX;
-            this.startY = point.pageY;
-        },
-        onTouchMove: function(e) {
-            e.preventDefault();
-            let point = e.touches ? e.touches[0] : e;
-            this.endX = point.pageX;
-            this.endY = point.pageY;
-            this.deltaX = point.pageX - this.startX;
-            this.deltaY = point.pageY - this.startY;
-            let mY = this.deltaY + this.dY
-            this.refs.content.style.transform = 'translateY(' + mY + 'px)'
-            this.refs.reload.style.transform = 'translateY(' + (mY / 2) + 'px)'
-        },
-        onTouchEnd: function(e) {
-            if (Math.abs(this.deltaY) < 40) {
-                this.refs.content.style.transition = "all .3s"
-                this.refs.content.style.transform = 'translateY(0)'
-                this.refs.reload.style.transition = "all .3s"
-                this.refs.reload.style.transform = 'translateY(0)'
-                return
-            }
-            if (!this.endY) {
-                return
-            }
+    // constructor() {
+    //     super()
+    //     this.state = {}
+    //     this.dX = 0
+    //     this.dY = 0
+    // }
+    getDefaultProps: function () {
+        return {
+            time: ' .3s'
+        };
+    },
+    getInitialState: function () {
+        this.dX = 0
+        this.dY = 0
+        return {
+            loaded: true
+        };
+    },
+    onTouchStart: function (e) {
+        this.refs.content.style.transitionDuration = "0s"
+        this.refs.reload.style.transitionDuration = "0s"
+        let point = e.touches ? e.touches[0] : e;
+        this.startX = point.pageX;
+        this.startY = point.pageY;
+    },
+    onTouchMove: function (e) {
+        e.preventDefault();
+        let point = e.touches ? e.touches[0] : e;
+        this.endX = point.pageX;
+        this.endY = point.pageY;
+        this.deltaX = point.pageX - this.startX;
+        this.deltaY = point.pageY - this.startY;
+        let dY = 48
+        let mcontent = this.deltaY
+        let mreload = this.deltaY + dY
+        let refresh = ConfigStore.get('refresh')
+        if (!refresh) {
+            mcontent = mcontent + dY
+            mreload = mreload + dY
+        }
+        this.refs.content.style.transform = 'translateY(' + mcontent + 'px)'
+        this.refs.reload.style.transform = 'translateY(' + (mreload / 2) + 'px)'
+    },
+    onTouchEnd: function (e) {
+        let refresh = ConfigStore.get('refresh')
+        this.refs.content.style.transitionDuration = this.props.time
+        this.refs.reload.style.transitionDuration = this.props.time
+        if (this.deltaY < 0) {
+            this.refs.content.style.transform = 'translateY(0)'
+            this.refs.reload.style.transform = 'translateY(0)'
+            return
+        }
+        if (Math.abs(this.deltaY) < 40 && refresh) {
+            return
+        }
+        this.refs.content.style.transform = 'translateY(48px)'
+        this.refs.reload.style.transform = 'translateY(48px)'
+        if (this.props.reLoad && refresh) {
             ConfigActions.update('refresh', false)
-            this.refs.reload.innerHTML = '加载中'
-            this.dY = 48
-            this.refs.content.style.transition = "all .3s"
-            this.refs.content.style.transform = 'translateY(' + this.dY + 'px)'
-            this.refs.reload.style.transition = "all .3s"
-            this.refs.reload.style.transform = 'translateY(' + this.dY + 'px)'
-            this.endY = null
-            if (this.props.reLoad) {
-                this.props.reLoad()
+            this.setState({
+                loaded: false
+            })
+            this.props.reLoad()
+        }
+    },
+    render: function () {
+        let refresh = ConfigStore.get('refresh')
+        let style = {}
+        if (refresh) {
+            style = {
+                transitionDuration: this.props.time,
+                transform: 'translateY(0)'
             }
-        },
-        render: function() {
-            console.log(this.props.nn + 1);
-            return (
+        } else {
+            style = {
+                transitionDuration: this.props.time,
+                transform: 'translateY(48px)'
+            }
+        }
+        return (
+            React.createElement('section', {
+                id: 'section',
+                className: 'section',
+                onTouchStart: this.onTouchStart,
+                onTouchMove: this.onTouchMove,
+                onTouchEnd: this.onTouchEnd,
+                // onTouchCancel: this.onTouchCancel.bind(this),
+            },
                 React.createElement('section', {
-                        id: 'section',
-                        className: 'section',
-                        onTouchStart: this.onTouchStart,
-                        onTouchMove: this.onTouchMove,
-                        onTouchEnd: this.onTouchEnd,
-                        // onTouchCancel: this.onTouchCancel.bind(this),
-                    },
-                    React.createElement('section', {
-                            ref: 'reload',
-                            id: 'reload',
-                            className: 'reload',
-                        },
-                        '下拉刷新'
-                        // React.createElement(Reload)
-                    ),
-                    React.createElement('section', {
-                            id: 'content',
-                            className: 'content',
-                            ref: 'content',
-                        },
-                        React.createElement(Link, {
-                            to: '/',
-                            activeClassName: 'active'
-                        }, '首页'),
-                        React.createElement(Link, {
-                            to: '/post',
-                            activeClassName: 'active'
-                        }, 'post'),
-                        React.createElement(Link, {
-                            to: '/post2',
-                            activeClassName: 'active'
-                        }, 'post2'),
-                        this.props.children
-                    )
+                    ref: 'reload',
+                    id: 'reload',
+                    className: 'reload',
+                    style: style
+                },
+                    React.createElement(Reload, { refresh: refresh })
+                ),
+                React.createElement('section', {
+                    id: 'content',
+                    className: 'content',
+                    ref: 'content',
+                    style: style
+                },
+                    React.createElement(Link, {
+                        to: '/',
+                        activeClassName: 'active'
+                    }, '首页'),
+                    React.createElement(Link, {
+                        to: '/post',
+                        activeClassName: 'active'
+                    }, 'post'),
+                    React.createElement(Link, {
+                        to: '/post2',
+                        activeClassName: 'active'
+                    }, 'post2'),
+                    this.props.children
                 )
             )
-        }
-    })
-    // Content.defaultProps = {
-    //     title: '头部'
-    // }
+        )
+    }
+})
 module.exports = Content
