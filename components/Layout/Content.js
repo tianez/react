@@ -14,26 +14,26 @@ const Content = React.createClass({
     //     this.dX = 0
     //     this.dY = 0
     // }
-    getDefaultProps: function () {
+    getDefaultProps: function() {
         return {
             time: ' .3s'
         };
     },
-    getInitialState: function () {
+    getInitialState: function() {
         this.dX = 0
         this.dY = 0
         return {
             loaded: true
         };
     },
-    onTouchStart: function (e) {
+    onTouchStart: function(e) {
         this.refs.content.style.transitionDuration = "0s"
         this.refs.reload.style.transitionDuration = "0s"
         let point = e.touches ? e.touches[0] : e;
         this.startX = point.pageX;
         this.startY = point.pageY;
     },
-    onTouchMove: function (e) {
+    onTouchMove: function(e) {
         e.preventDefault();
         let point = e.touches ? e.touches[0] : e;
         this.endX = point.pageX;
@@ -51,7 +51,10 @@ const Content = React.createClass({
         this.refs.content.style.transform = 'translateY(' + mcontent + 'px)'
         this.refs.reload.style.transform = 'translateY(' + (mreload / 2) + 'px)'
     },
-    onTouchEnd: function (e) {
+    onTouchEnd: function(e) {
+        if (!this.endY) {
+            return
+        }
         let refresh = ConfigStore.get('refresh')
         this.refs.content.style.transitionDuration = this.props.time
         this.refs.reload.style.transitionDuration = this.props.time
@@ -60,12 +63,15 @@ const Content = React.createClass({
             this.refs.reload.style.transform = 'translateY(0)'
             return
         }
-        if (Math.abs(this.deltaY) < 40 && refresh) {
+        if (this.deltaY < 40 && refresh) {
+            this.refs.content.style.transform = 'translateY(0)'
+            this.refs.reload.style.transform = 'translateY(0)'
             return
         }
         this.refs.content.style.transform = 'translateY(48px)'
         this.refs.reload.style.transform = 'translateY(48px)'
         if (this.props.reLoad && refresh) {
+            this.endY = null
             ConfigActions.update('refresh', false)
             this.setState({
                 loaded: false
@@ -73,7 +79,7 @@ const Content = React.createClass({
             this.props.reLoad()
         }
     },
-    render: function () {
+    render: function() {
         let refresh = ConfigStore.get('refresh')
         let style = {}
         if (refresh) {
@@ -89,27 +95,27 @@ const Content = React.createClass({
         }
         return (
             React.createElement('section', {
-                id: 'section',
-                className: 'section',
-                onTouchStart: this.onTouchStart,
-                onTouchMove: this.onTouchMove,
-                onTouchEnd: this.onTouchEnd,
-                // onTouchCancel: this.onTouchCancel.bind(this),
-            },
-                React.createElement('section', {
-                    ref: 'reload',
-                    id: 'reload',
-                    className: 'reload',
-                    style: style
+                    id: 'section',
+                    className: 'section',
+                    onTouchStart: this.onTouchStart,
+                    onTouchMove: this.onTouchMove,
+                    onTouchEnd: this.onTouchEnd,
+                    // onTouchCancel: this.onTouchCancel.bind(this),
                 },
+                React.createElement('section', {
+                        ref: 'reload',
+                        id: 'reload',
+                        className: 'reload',
+                        style: style
+                    },
                     React.createElement(Reload, { refresh: refresh })
                 ),
                 React.createElement('section', {
-                    id: 'content',
-                    className: 'content',
-                    ref: 'content',
-                    style: style
-                },
+                        id: 'content',
+                        className: 'content',
+                        ref: 'content',
+                        style: style
+                    },
                     React.createElement(Link, {
                         to: '/',
                         activeClassName: 'active'

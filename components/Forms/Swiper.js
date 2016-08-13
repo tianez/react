@@ -23,7 +23,7 @@ class Tab extends React.Component {
     autoplay() {
         clearInterval(this.autoplayTimer);
         let length = this.length - 1
-        this.autoplayTimer = setInterval(function () {
+        this.autoplayTimer = setInterval(function() {
             let dot = this.state.dot
             if (dot < length) {
                 dot += 1
@@ -108,6 +108,9 @@ class Tab extends React.Component {
         this.endY = point.pageY;
         let deltaX = point.pageX - this.startX;
         let deltaY = point.pageY - this.startY;
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            e.stopPropagation();
+        }
         e.target.style.transform = 'translateX(' + deltaX + 'px)'
         let dot = this.state.dot
         let width = e.target.getBoundingClientRect().width
@@ -147,7 +150,7 @@ class Tab extends React.Component {
                 ev.transition = "all .3s"
                 ev.transform = 'translateX(0)'
                 this.refs.dot.innerHTML = (dot + 1) + '/' + this.length
-                setTimeout(function () {
+                setTimeout(function() {
                     this.setState({
                         dot: dot
                     })
@@ -190,29 +193,29 @@ class Tab extends React.Component {
         }
         return (
             React.createElement('div', {
-                className: 'tab'
-            },
-                React.createElement('div', {
-                    className: 'tab-cards'
+                    className: 'tab'
                 },
-                    childs.map(function (child, index) {
+                React.createElement('div', {
+                        className: 'tab-cards'
+                    },
+                    childs.map(function(child, index) {
                         let active = ''
                         if (index == dot) {
                             active = ' active'
                         }
                         return React.createElement('div', {
-                            key: index,
-                            onClick: this._onClick.bind(this, index),
-                            className: 'tab-card' + active
-                        },
+                                key: index,
+                                onClick: this._onClick.bind(this, index),
+                                className: 'tab-card' + active
+                            },
                             child.props.title
                         )
                     }.bind(this))
                 ),
                 React.createElement('div', {
-                    className: 'tab-cards2'
-                },
-                    childs.map(function (child, index) {
+                        className: 'tab-cards2'
+                    },
+                    childs.map(function(child, index) {
                         let style
                         if (index == dot) {
                             style = {
@@ -228,21 +231,21 @@ class Tab extends React.Component {
                             }
                         }
                         return React.createElement('div', {
-                            key: index,
-                            ref: 'tab' + index,
-                            // draggable: true,
-                            className: 'tab-card2',
-                            style: style,
-                            // onMouseDown: this.onMouseDown.bind(this),
-                            // onMouseMove: this.onMouseMove.bind(this),
-                            // onDragStart: this.onDragStart.bind(this),
-                            // onDrag: this.onDrag.bind(this),
-                            // onDragOver: this.onDragOver.bind(this),
-                            onTouchStart: this.onTouchStart.bind(this),
-                            onTouchMove: this.onTouchMove.bind(this),
-                            onTouchEnd: this.onTouchEnd.bind(this),
-                            onTouchCancel: this.onTouchCancel.bind(this),
-                        },
+                                key: index,
+                                ref: 'tab' + index,
+                                // draggable: true,
+                                className: 'tab-card2',
+                                style: style,
+                                // onMouseDown: this.onMouseDown.bind(this),
+                                // onMouseMove: this.onMouseMove.bind(this),
+                                // onDragStart: this.onDragStart.bind(this),
+                                // onDrag: this.onDrag.bind(this),
+                                // onDragOver: this.onDragOver.bind(this),
+                                onTouchStart: this.onTouchStart.bind(this),
+                                onTouchMove: this.onTouchMove.bind(this),
+                                onTouchEnd: this.onTouchEnd.bind(this),
+                                onTouchCancel: this.onTouchCancel.bind(this),
+                            },
                             child.props.children,
                             React.createElement('div', {
                                 className: 'p'
