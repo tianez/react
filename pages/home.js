@@ -17,7 +17,6 @@ const {
     Uploader,
     Button,
     Grid,
-    Alert,
 } = require('../components/Weui')
 
 const {
@@ -57,7 +56,6 @@ class Home extends React.Component {
             React.createElement(Content, {
                     reLoad: this.reLoad.bind(this)
                 },
-
                 React.createElement(Input),
                 React.createElement(Uploader),
                 React.createElement(Switch),

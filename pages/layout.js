@@ -12,6 +12,7 @@ const {
 
 const {
     Alert,
+    Toast
 } = require('../components/Weui')
 class Layout extends React.Component {
     constructor() {
@@ -28,9 +29,9 @@ class Layout extends React.Component {
     }
     componentDidMount() {
         ConfigStore.addChangeListener(this._onChange.bind(this))
-        setTimeout(function() {
-            Tip({ title: '23232', content: 'haode aadsa!' })
-        }, 3000);
+            // setTimeout(function() {
+            //     Tip({ title: '23232', content: 'haode aadsa!' })
+            // }, 3000);
     }
     componentWillUpdate(nextProps, nextState) {
 
@@ -46,7 +47,8 @@ class Layout extends React.Component {
                 React.createElement(Header),
                 this.props.children,
                 React.createElement(Footer),
-                React.createElement(Alert)
+                React.createElement(Alert),
+                React.createElement(Toast)
             )
         )
     }

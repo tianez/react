@@ -14,5 +14,6 @@ var Forms = {
     Button: require('./Button'),
     Grid: require('./Grid'),
     Alert: require('./Alert'),
+    Toast: require('./Toast'),
 }
 module.exports = Forms

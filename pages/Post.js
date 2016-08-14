@@ -69,9 +69,9 @@ class Post extends React.Component {
     }
     show() {
         this.setState({ show: true });
-        this.state.timer = setTimeout(() => {
-            this.setState({ show: false });
-        }, 3000);
+        // this.state.timer = setTimeout(() => {
+        //     this.setState({ show: false });
+        // }, 3000);
     }
     render() {
         return (
@@ -83,7 +83,7 @@ class Post extends React.Component {
                     onClick: this.show.bind(this)
                 }, '确认'),
                 React.createElement(Toast, {
-                    show: this.state.show
+                    show: this.state.show,
                 }, 'loading...'),
                 React.createElement('div', {
                         className: 'form-group'

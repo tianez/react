@@ -48,6 +48,12 @@ class Alert extends React.Component {
                     React.createElement('div', {
                             className: 'weui_dialog_ft'
                         },
+                        this.props.tip ? React.createElement('a', {
+                                className: 'weui_btn_dialog default',
+                                onClick: this._onClick.bind(this)
+                            },
+                            '取消'
+                        ) : null,
                         React.createElement('a', {
                                 className: 'weui_btn_dialog primary',
                                 onClick: this._onClick.bind(this)
@@ -62,6 +68,7 @@ class Alert extends React.Component {
 }
 Alert.defaultProps = {
     show: false,
+    tip: true,
     title: '弹窗标题',
     content: '弹窗内容，告知当前页面信息等',
     action: '确定'
