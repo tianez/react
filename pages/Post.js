@@ -7,11 +7,18 @@ const {
 const {
     Content
 } = require('../components/Layout')
+const {
+    Button,
+    Toast
+} = require('react-weui')
+
 class Post extends React.Component {
     constructor() {
         super()
         this.state = {
-            kk: '33333333333'
+            kk: '33333333333',
+            show: false,
+            timer: null
         }
     }
     componentWillMount() {
@@ -19,15 +26,15 @@ class Post extends React.Component {
     }
     componentDidMount() {
         ConfigActions.update('title', 'post')
-        // storedb('article').insert({ 'id': 1, 'value': '23232323' })
-        // let res = storedb('article').find({ 'id': 1 })
-        // console.log(res)
-        // let timestamp = res[0]['_id'];
-        // // var timestamp = '1425553097';
-        // let d = new Date(timestamp); //根据时间戳生成的时间对象
-        // let date = (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + (d.getDate()) + " " + (d.getHours()) + ":" + (d.getMinutes()) + ":" + (d.getSeconds())
-        // console.log(date)
-        // console.log(ConfigStore.get('refresh'))
+            // storedb('article').insert({ 'id': 1, 'value': '23232323' })
+            // let res = storedb('article').find({ 'id': 1 })
+            // console.log(res)
+            // let timestamp = res[0]['_id'];
+            // // var timestamp = '1425553097';
+            // let d = new Date(timestamp); //根据时间戳生成的时间对象
+            // let date = (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + (d.getDate()) + " " + (d.getHours()) + ":" + (d.getMinutes()) + ":" + (d.getSeconds())
+            // console.log(date)
+            // console.log(ConfigStore.get('refresh'))
     }
     componentWillReceiveProps(nextProps) {
         // if ((nextProps.location.pathname !== this.state.hash) || (nextProps.location.search !== this.state.search)) {
@@ -47,51 +54,65 @@ class Post extends React.Component {
         // console.log('2');
     }
     componentWillUnmount() {
-        console.log('3');
+        // console.log('3');
     }
     reLoad() {
-        setTimeout(function () {
+        setTimeout(function() {
             Reloaded()
             this.setState({
                 kk: 'sdsdsdsd2'
             })
         }.bind(this), 3000)
     }
+    componentWillUnmount() {
+        this.state.timer && clearTimeout(this.state.timer);
+    }
+    show() {
+        this.setState({ show: true });
+        this.state.timer = setTimeout(() => {
+            this.setState({ show: false });
+        }, 3000);
+    }
     render() {
         return (
             React.createElement(Content, {
-                key: 'post',
-                nn: 'post',
-                reLoad: this.reLoad.bind(this)
-            },
-                React.createElement('div', {
-                    className: 'form-group'
+                    reLoad: this.reLoad.bind(this)
                 },
-                    React.createElement(Swiper, {
-                        className: 'form-control'
+                React.createElement(Button, {
+                    type: 'primary',
+                    onClick: this.show.bind(this)
+                }, '确认'),
+                React.createElement(Toast, {
+                    show: this.state.show
+                }, 'loading...'),
+                React.createElement('div', {
+                        className: 'form-group'
                     },
-                        React.createElement('div', {
-                            className: 'form-control',
-                            title: 'title'
+                    React.createElement(Swiper, {
+                            className: 'form-control'
                         },
+                        React.createElement('div', {
+                                className: 'form-control',
+                                title: 'title'
+                            },
                             '1111111111111111111111111'
                         ),
                         React.createElement('div', {
-                            className: 'form-control',
-                            title: 'title22'
-                        },
+                                className: 'form-control',
+                                title: 'title22'
+                            },
                             '2222222222222222222'
                         ),
                         React.createElement('div', {
-                            className: 'form-control',
-                            title: 'title22'
-                        },
+                                className: 'form-control',
+                                title: 'title22'
+                            },
                             '333333333333333333333333'
                         ),
                         React.createElement('div', {
-                            className: 'form-control',
-                            title: 'title22'
-                        },
+                                className: 'form-control',
+                                title: 'title22'
+                            },
                             '44444444444444444444'
                         )
                     ),
