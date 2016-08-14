@@ -12,7 +12,6 @@ class Footer extends React.Component {
         if (this.props.onSubmit()) {
             this.props.onSubmit(e)
         }
-
     }
     render() {
         return (

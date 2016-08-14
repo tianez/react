@@ -13,5 +13,6 @@ var Forms = {
     Uploader: require('./Uploader'),
     Button: require('./Button'),
     Grid: require('./Grid'),
+    Alert: require('./Alert'),
 }
 module.exports = Forms

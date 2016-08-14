@@ -13,6 +13,11 @@ window.Reloaded = function() {
     ConfigActions.update('refresh', true)
 }
 
+window.Tip = function(msg) {
+    msg['show'] = true
+    ConfigActions.update('alert', msg)
+}
+
 //获取url参数数组
 window.get = function(url) {
     if (!url) {
