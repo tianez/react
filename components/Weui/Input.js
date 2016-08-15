@@ -42,7 +42,7 @@ class Input extends React.Component {
                         },
                             React.createElement('input', {
                                 className: 'weui_input',
-                                type: 'text',
+                                type: this.props.type,
                                 value: this.state.value,
                                 onChange: this._onChange.bind(this),
                                 placeholder: this.props.placeholder
@@ -57,6 +57,7 @@ class Input extends React.Component {
 Input.defaultProps = {
     value: '',
     name: 'test',
+    type:'text',
     placeholder: '请输入qq号'
 }
 module.exports = Input

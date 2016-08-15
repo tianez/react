@@ -67,7 +67,8 @@ class Home extends React.Component {
                 reLoad: this.reLoad.bind(this)
             },
                 React.createElement(Input,{
-                    onChange:this._onChange.bind(this)
+                    onChange:this._onChange.bind(this),
+                    type:'tel' 
                 }),
                 React.createElement(Panel),
                 React.createElement(Button, {
