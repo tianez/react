@@ -46,24 +46,32 @@ class Home extends React.Component {
         console.log(ConfigStore.get('refresh'))
     }
     click() {
-         console.log('3');
+        console.log('3');
         toast()
     }
     reLoad() {
-        setTimeout(function() {
+        setTimeout(function () {
             Reloaded()
         }.bind(this), 3000)
+    }
+    _onChange(name, value) {
+        console.log(name);
+        console.log(value);
+        this.setState({
+            kk: value
+        })
     }
     render() {
         return (
             React.createElement(Content, {
                 reLoad: this.reLoad.bind(this)
             },
-                
-                React.createElement(Uploader),
+                React.createElement(Input,{
+                    onChange:this._onChange.bind(this)
+                }),
                 React.createElement(Panel),
                 React.createElement(Button, {
-                    className:'weui_btn_primary',
+                    className: 'weui_btn_primary',
                     onClick: this.click.bind(this)
                 }),
                 React.createElement('div', {

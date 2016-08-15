@@ -23,9 +23,9 @@ class Input extends React.Component {
         return (nextProps.value !== this.props.value) || (this.state.value !== nextState.value)
     }
     componentWillReceiveProps(nextProps) {
-        this.state = {
+        this.setState( {
             value: nextProps.value
-        }
+        })
     }
     oo(_this, value) {
         let error

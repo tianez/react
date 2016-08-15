@@ -1,12 +1,20 @@
 'use strict'
 
 class Alert extends React.Component {
-    constructor() {
-        super()
-        this.state = ConfigStore.get('alert')
+    constructor(props) {
+        super(props)
+        if (props.g) {
+            this.state = ConfigStore.get('alert')
+        } else {
+            this.state = props
+        }
     }
     componentWillReceiveProps(nextProps, nextState) {
-        this.setState(ConfigStore.get('alert'))
+        if (this.props.g) {
+            this.setState(ConfigStore.get('alert'))
+        } else {
+            this.setState(nextProps)
+        }
     }
     shouldComponentUpdate(nextProps, nextState) {
         if (this.state == nextState) {
@@ -15,49 +23,53 @@ class Alert extends React.Component {
         return true
     }
     _onClick() {
-        ConfigActions.update('alert', { show: false })
+        if (this.props.g) {
+            ConfigActions.update('alert', { show: false })
+        } else {
+            this.setState({ show: false })
+        }
     }
     render() {
         return (
             React.createElement('div', {
-                    className: 'weui_dialog_alert',
-                    style: {
-                        display: this.state.show ? 'block' : 'none'
-                    }
-                },
+                className: 'weui_dialog_alert',
+                style: {
+                    display: this.state.show ? 'block' : 'none'
+                }
+            },
                 React.createElement('div', {
                     className: 'weui_mask'
                 }),
                 React.createElement('div', {
-                        className: 'weui_dialog'
-                    },
+                    className: 'weui_dialog'
+                },
                     React.createElement('div', {
-                            className: 'weui_dialog_hd'
-                        },
+                        className: 'weui_dialog_hd'
+                    },
                         React.createElement('strong', {
-                                className: 'weui_dialog_title'
-                            },
+                            className: 'weui_dialog_title'
+                        },
                             this.state.title ? this.state.title : this.props.title
                         )
                     ),
                     React.createElement('div', {
-                            className: 'weui_dialog_bd'
-                        },
+                        className: 'weui_dialog_bd'
+                    },
                         this.state.content ? this.state.content : this.props.content
                     ),
                     React.createElement('div', {
-                            className: 'weui_dialog_ft'
-                        },
+                        className: 'weui_dialog_ft'
+                    },
                         this.props.tip ? React.createElement('a', {
-                                className: 'weui_btn_dialog default',
-                                onClick: this._onClick.bind(this)
-                            },
+                            className: 'weui_btn_dialog default',
+                            onClick: this._onClick.bind(this)
+                        },
                             '取消'
                         ) : null,
                         React.createElement('a', {
-                                className: 'weui_btn_dialog primary',
-                                onClick: this._onClick.bind(this)
-                            },
+                            className: 'weui_btn_dialog primary',
+                            onClick: this._onClick.bind(this)
+                        },
                             this.state.action ? this.state.action : this.props.action
                         )
                     )

@@ -44,7 +44,7 @@ class Layout extends React.Component {
                 React.createElement(Header),
                 this.props.children,
                 React.createElement(Footer),
-                React.createElement(Alert),
+                React.createElement(Alert, { g: true }),
                 React.createElement(Toast)
             )
         )

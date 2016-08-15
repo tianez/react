@@ -9,10 +9,7 @@ var _todos = {
     title: '王的理想乡',
     loaded: true, //下拉刷新
     alert: {
-        show: false,
-        title: '弹窗标题',
-        content: '弹窗内容，告知当前页面信息等',
-        action: '确定'
+        show: false
     },
     toast:{
         show:false
