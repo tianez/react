@@ -13,12 +13,14 @@ class Toast extends React.Component {
             return
         }
         this.setState(toast)
-        setTimeout(() => {
-            ConfigActions.update('toast', { show: false })
-        }, 3000)
+        if (toast.show) {
+            setTimeout(() => {
+                ConfigActions.update('toast', { show: false })
+            }, 3000)
+        }
     }
     render() {
-        const { icon, children, iconSize } = this.props
+        const { icon } = this.props
         return (
             React.createElement('div', {
                 className: (icon === 'loading') ? 'weui_loading_toast' : '',
@@ -37,19 +39,15 @@ class Toast extends React.Component {
                     }),
                     React.createElement('p', {
                         className: 'weui_toast_content'
-                    }, ' loading...'))
+                    }, this.state.msg ? this.state.msg : this.props.msg))
             )
         )
     }
 }
 
-Toast.propTypes = {
-    icon: React.PropTypes.string,
-    iconSize: React.PropTypes.string,
-    show: React.PropTypes.bool
-}
 Toast.defaultProps = {
     icon: 'toast',
     show: false,
+    msg: 'OK！',
 }
 module.exports = Toast

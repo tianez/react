@@ -9,17 +9,10 @@ window.ConfigActions = require('./flux/ConfigActions')
  */
 window.ConfigStore = require('./flux/ConfigStore')
 
+require('./components/Weui/global')
+
 window.Reloaded = function () {
     ConfigActions.update('loaded', true)
-}
-
-window.Tip = function (msg) {
-    msg['show'] = true
-    ConfigActions.update('alert', msg)
-}
-
-window.toast = function () {
-    ConfigActions.update('toast', { show: true })
 }
 
 //获取url参数数组

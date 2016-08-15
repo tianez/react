@@ -22,7 +22,7 @@ class Post extends React.Component {
         }
     }
     componentWillMount() {
-        console.log('0');
+        // console.log('0');
     }
     componentDidMount() {
         ConfigActions.update('title', 'post')
@@ -59,9 +59,6 @@ class Post extends React.Component {
     reLoad() {
         setTimeout(function() {
             Reloaded()
-            // this.setState({
-            //     kk: 'sdsdsdsd2'
-            // })
         }.bind(this), 3000)
     }
     componentWillUnmount() {
@@ -69,6 +66,7 @@ class Post extends React.Component {
     }
     show() {
         this.setState({ show: true });
+        alert()
         // this.state.timer = setTimeout(() => {
         //     this.setState({ show: false });
         // }, 3000);
