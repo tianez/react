@@ -1,22 +1,29 @@
 'use strict'
-
+const classNames = require('classNames')
 class Button extends React.Component {
     constructor() {
         super()
     }
     render() {
+        const {className, onClick} = this.props;
+        const cls = classNames({
+            weui_btn: true,
+            [className]: className
+        })
+        const Component = this.props.href ? 'a' : 'button';
         return (
             React.createElement('div', {
-                    className: 'button_sp_area'
-                },
-                React.createElement('button', {
-                        className: 'weui_btn weui_btn_primary'
-                    },
-                    '按钮'
-                )
+                className: 'button_sp_area'
+            },
+                React.createElement(Component, {
+                    className: cls,
+                    onClick: onClick
+                }, this.props.title)
             )
         )
     }
 }
-
+Button.defaultProps = {
+    title: '保存'
+}
 module.exports = Button

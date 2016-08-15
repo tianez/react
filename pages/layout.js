@@ -28,7 +28,7 @@ class Layout extends React.Component {
         this.setState(config)
     }
     componentDidMount() {
-        ConfigStore.addChangeListener(this._onChange.bind(this))
+        // ConfigStore.addChangeListener(this._onChange.bind(this))
             // setTimeout(function() {
             //     Tip({ title: '23232', content: 'haode aadsa!' })
             // }, 3000);
@@ -37,7 +37,7 @@ class Layout extends React.Component {
 
     }
     componentWillUnmount() {
-        ConfigStore.removeChangeListener(this._onChange.bind(this))
+        // ConfigStore.removeChangeListener(this._onChange.bind(this))
     }
     render() {
         return (

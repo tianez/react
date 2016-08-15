@@ -5,27 +5,33 @@
 class Toast extends React.Component {
     constructor() {
         super()
+        this.state = ConfigStore.get('toast')
     }
-    componentDidMount() {
-        this.state.timer = setTimeout(() => {
-            this.setState({ show: false });
-        }, 3000);
+    componentWillReceiveProps(nextProps, nextState) {
+        let toast = ConfigStore.get('toast')
+        if (toast.show == this.state.show) {
+            return
+        }
+        this.setState(toast)
+        setTimeout(() => {
+            ConfigActions.update('toast', { show: false })
+        }, 3000)
     }
     render() {
-        const { icon, show, children, iconSize } = this.props
+        const { icon, children, iconSize } = this.props
         return (
             React.createElement('div', {
-                    className: (icon === 'loading') ? 'weui_loading_toast' : '',
-                    style: {
-                        display: 'block'
-                    }
-                },
+                className: (icon === 'loading') ? 'weui_loading_toast' : '',
+                style: {
+                    display: this.state.show ? 'block' : 'none'
+                }
+            },
                 React.createElement('div', {
                     className: 'weui_mask_transparent'
                 }),
                 React.createElement('div', {
-                        className: 'weui_toast'
-                    },
+                    className: 'weui_toast'
+                },
                     React.createElement('i', {
                         className: 'weui_icon_toast'
                     }),

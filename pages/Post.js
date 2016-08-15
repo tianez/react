@@ -59,9 +59,9 @@ class Post extends React.Component {
     reLoad() {
         setTimeout(function() {
             Reloaded()
-            this.setState({
-                kk: 'sdsdsdsd2'
-            })
+            // this.setState({
+            //     kk: 'sdsdsdsd2'
+            // })
         }.bind(this), 3000)
     }
     componentWillUnmount() {
@@ -83,7 +83,6 @@ class Post extends React.Component {
                     onClick: this.show.bind(this)
                 }, '确认'),
                 React.createElement(Toast, {
-                    show: this.state.show,
                 }, 'loading...'),
                 React.createElement('div', {
                         className: 'form-group'

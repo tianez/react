@@ -11,11 +11,9 @@ class Reload extends React.Component {
     }
     render() {
         let text = '加载中'
-        if (this.props.refresh) {
+        if (this.props.loaded) {
             text = '下拉刷新'
         }
-        console.log(this.props.refresh);
-        console.log(text);
         return (
             React.createElement('section', {
                 ref: 'loading',

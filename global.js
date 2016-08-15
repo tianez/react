@@ -9,22 +9,26 @@ window.ConfigActions = require('./flux/ConfigActions')
  */
 window.ConfigStore = require('./flux/ConfigStore')
 
-window.Reloaded = function() {
-    ConfigActions.update('refresh', true)
+window.Reloaded = function () {
+    ConfigActions.update('loaded', true)
 }
 
-window.Tip = function(msg) {
+window.Tip = function (msg) {
     msg['show'] = true
     ConfigActions.update('alert', msg)
 }
 
+window.toast = function () {
+    ConfigActions.update('toast', { show: true })
+}
+
 //获取url参数数组
-window.get = function(url) {
+window.get = function (url) {
     if (!url) {
         var url = window.document.location.href.toString();
     }
     var u = url.split("?");
-    if (typeof(u[1]) == "string") {
+    if (typeof (u[1]) == "string") {
         u = u[1].split("&");
         var get = {};
         for (var i in u) {
@@ -38,7 +42,7 @@ window.get = function(url) {
 }
 
 //2个对象合并
-window.extend = function(o, n, override) {
+window.extend = function (o, n, override) {
     for (var p in n)
         if (n.hasOwnProperty(p) && (!o.hasOwnProperty(p) || override)) o[p] = n[p];
 }
@@ -57,7 +61,7 @@ window.GetRequest = function GetRequest() {
 }
 
 // 屏幕旋转
-window.onorientationchange = function() {
+window.onorientationchange = function () {
     switch (window.orientation) {
         case -90:
         case 90:

@@ -17,8 +17,8 @@ const {
     Uploader,
     Button,
     Grid,
+    Navbar,
 } = require('../components/Weui')
-
 const {
     Content
 } = require('../components/Layout')
@@ -33,7 +33,7 @@ class Home extends React.Component {
         ConfigActions.update('title', '首页')
         let audio = this.refs.audio;
         // audio.play()
-        audio.addEventListener('timeupdate', function() { //剩余时间
+        audio.addEventListener('timeupdate', function () { //剩余时间
             if (!isNaN(audio.duration)) {
                 var surplus = audio.duration - audio.currentTime;
                 console.log(surplus);
@@ -43,37 +43,33 @@ class Home extends React.Component {
     componentWillReceiveProps() {
         console.log(ConfigStore.get('refresh'))
     }
+    click() {
+         console.log('3');
+        toast()
+    }
     reLoad() {
         setTimeout(function() {
-            ConfigActions.update('refresh', true)
-            this.setState({
-                kk: 'sdsdsdsd'
-            })
-        }.bind(this), 2000)
+            Reloaded()
+        }.bind(this), 3000)
     }
     render() {
         return (
             React.createElement(Content, {
-                    reLoad: this.reLoad.bind(this)
-                },
-                React.createElement(Input),
+                reLoad: this.reLoad.bind(this)
+            },
+                React.createElement(Navbar),
                 React.createElement(Uploader),
                 React.createElement(Switch),
-                React.createElement(Checkbox),
-                React.createElement(Checkbox2),
-                React.createElement(Select),
-                React.createElement(Select2),
-                React.createElement(Select3),
-                React.createElement(Radio),
-                React.createElement(Textarea),
-                React.createElement(Button),
-
+                React.createElement(Button, {
+                    className:'weui_btn_primary',
+                    onClick: this.click.bind(this)
+                }),
                 React.createElement('div', {
-                        className: 'form-group animated bounceInRight'
-                    },
+                    className: 'form-group animated bounceInRight'
+                },
                     React.createElement('div', {
-                            className: 'form-control'
-                        },
+                        className: 'form-control'
+                    },
                         React.createElement('audio', {
                             ref: 'audio',
                             src: '1.mp3',
