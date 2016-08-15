@@ -21,6 +21,7 @@ const {
     Home,
     Post,
     Post2,
+    Weui
 } = require('./pages')
 
 function onEnter(nextState, replace) {
@@ -45,6 +46,7 @@ const routers = (
             React.createElement(IndexRoute, { component: Home }),
             React.createElement(Route, { path: "post", component: Post }),
             React.createElement(Route, { path: "post2", component: Post2 }),
+            React.createElement(Route, { path: "weui", component: Weui }),
             React.createElement(Route, { path: "*", component: Nomatch })
         )
     )

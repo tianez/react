@@ -12,5 +12,6 @@ var Temp = {
     Home: Home,
     Post: Post,
     Post2: Post2,
+    Weui: require('./Weui')
 }
 module.exports = Temp

@@ -1,10 +1,6 @@
 'use strict'
 
 const {
-    Swiper
-} = require('../components/Forms')
-
-const {
     Content
 } = require('../components/Layout')
 class Post extends React.Component {
@@ -19,10 +15,7 @@ class Post extends React.Component {
     }
     render() {
         return (
-            React.createElement(Content, {
-                    key: 'post',
-                    nn: 'post2'
-                },
+            React.createElement(Content, {},
                 React.createElement('div', {
                         className: 'form-group'
                     },
