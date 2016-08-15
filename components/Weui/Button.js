@@ -13,7 +13,7 @@ class Button extends React.Component {
         const Component = this.props.href ? 'a' : 'button';
         return (
             React.createElement('div', {
-                className: 'button_sp_area'
+                className: 'weui_btn_area'
             },
                 React.createElement(Component, {
                     className: cls,

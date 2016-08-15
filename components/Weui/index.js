@@ -16,5 +16,8 @@ var Forms = {
     Alert: require('./Alert'),
     Toast: require('./Toast'),
     Navbar: require('./Navbar'),
+    Tabbar: require('./Tabbar'),
+    Progress: require('./Progress'),
+    Panel: require('./Panel'),
 }
 module.exports = Forms

@@ -1,7 +1,9 @@
 'use strict'
 
 const classNames = require('classNames')
-
+const {
+    Tabbar
+} = require('../Weui')
 class Footer extends React.Component {
     constructor() {
         super()
@@ -18,7 +20,9 @@ class Footer extends React.Component {
             React.createElement('footer', {
                 id: 'footer',
                 className: 'footer',
-            }, this.props.title)
+            },
+            React.createElement(Tabbar)
+            )
         )
     }
 }

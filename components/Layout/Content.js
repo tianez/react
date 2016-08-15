@@ -49,7 +49,7 @@ const Content = React.createClass({
         this.endY = point.pageY;
         this.deltaX = point.pageX - this.startX;
         this.deltaY = point.pageY - this.startY;
-        if (this.deltaY < 40) {
+        if (this.deltaY < 48) {
             return
         }
         let dY = 48
@@ -69,6 +69,7 @@ const Content = React.createClass({
         if (!this.endY) {
             return
         }
+        this.endY = null
         let loaded = ConfigStore.get('loaded')
         this.refs.content.style.transitionDuration = this.props.time
         this.refs.reload.style.transitionDuration = this.props.time
@@ -80,10 +81,9 @@ const Content = React.createClass({
         this.refs.content.style.transform = 'translateY(48px)'
         this.refs.reload.style.transform = 'translateY(48px)'
         if (!this.props.reLoad) {
-            this.endY = null
+            ConfigActions.update('loaded', true)
             return
         }
-        this.endY = null
         if (loaded) {
             ConfigActions.update('loaded', false)
             this.props.reLoad()

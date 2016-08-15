@@ -18,6 +18,8 @@ const {
     Button,
     Grid,
     Navbar,
+    Tabbar,
+    Panel
 } = require('../components/Weui')
 const {
     Content
@@ -57,9 +59,9 @@ class Home extends React.Component {
             React.createElement(Content, {
                 reLoad: this.reLoad.bind(this)
             },
-                React.createElement(Navbar),
+                
                 React.createElement(Uploader),
-                React.createElement(Switch),
+                React.createElement(Panel),
                 React.createElement(Button, {
                     className:'weui_btn_primary',
                     onClick: this.click.bind(this)
