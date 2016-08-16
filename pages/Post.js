@@ -7,10 +7,6 @@ const {
 const {
     Content
 } = require('../components/Layout')
-const {
-    Button,
-    Toast
-} = require('react-weui')
 
 class Post extends React.Component {
     constructor() {

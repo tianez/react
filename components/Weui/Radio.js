@@ -30,6 +30,7 @@ class Radio extends React.Component {
                                 name: 'radio1',
                                 id: 'x11',
                                 type: 'radio',
+                                defaultChecked:true,
                                 value: 0
                             }),
                             React.createElement('span', {

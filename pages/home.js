@@ -1,8 +1,4 @@
 'use strict'
-// const {
-//     Form,
-//     Input
-// } = require('../components/Forms')
 
 const {
     Input,

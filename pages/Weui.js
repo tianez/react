@@ -59,7 +59,16 @@ class Weui extends React.Component {
                     onChange: this._onChange.bind(this),
                     type: 'tel'
                 }),
-                React.createElement(Textarea),
+                React.createElement(Input, {
+                    title:'时间',
+                    type: 'date',
+                    onChange: this._onChange.bind(this),
+                }),
+                React.createElement(Input, {
+                    onChange: this._onChange.bind(this),
+                    type: 'datetime-local'
+                }),
+                React.createElement(Textarea,{value:'haod'}),
                 React.createElement(Checkbox),
                 React.createElement(Checkbox2),
                 React.createElement(Radio),

@@ -25,6 +25,7 @@ class Checkbox2 extends React.Component {
                                 name: 'checkbox2',
                                 id: 'x15',
                                 type: 'checkbox',
+                                defaultChecked:true,
                                 // checked: 'checked',
                                 value: 0
                             }),
