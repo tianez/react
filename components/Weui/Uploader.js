@@ -90,6 +90,7 @@ class Uploader extends React.Component {
         let files = this.state.files
         let thumbs = files.map(function (file, index) {
             return React.createElement('li', {
+                key:index,
                 className: 'weui_uploader_file',
                 style: {
                     backgroundImage: 'url(' + file.thumb + ')'

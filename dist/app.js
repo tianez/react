@@ -2243,6 +2243,7 @@
 	            var files = this.state.files;
 	            var thumbs = files.map(function (file, index) {
 	                return React.createElement('li', {
+	                    key: index,
 	                    className: 'weui_uploader_file',
 	                    style: {
 	                        backgroundImage: 'url(' + file.thumb + ')'
