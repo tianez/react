@@ -20,7 +20,8 @@ const {
     Navbar,
     Tabbar,
     Panel,
-    Progress
+    Progress,
+    List
 } = require('../components/Weui')
 const {
     Content
@@ -69,6 +70,7 @@ class Weui extends React.Component {
                     type: 'datetime-local'
                 }),
                 React.createElement(Textarea,{value:'haod'}),
+                React.createElement(List),
                 React.createElement(Checkbox),
                 React.createElement(Checkbox2),
                 React.createElement(Radio),

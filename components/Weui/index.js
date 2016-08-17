@@ -19,5 +19,7 @@ var Forms = {
     Tabbar: require('./Tabbar'),
     Progress: require('./Progress'),
     Panel: require('./Panel'),
+    List: require('./List'),
+    
 }
 module.exports = Forms
