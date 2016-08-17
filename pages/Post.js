@@ -8,6 +8,11 @@ const {
     Content
 } = require('../components/Layout')
 
+const {
+    Button,
+    Toast
+} = require('../components/Weui')
+
 class Post extends React.Component {
     constructor() {
         super()
@@ -73,7 +78,7 @@ class Post extends React.Component {
                     reLoad: this.reLoad.bind(this)
                 },
                 React.createElement(Button, {
-                    type: 'primary',
+                    className:'weui_btn_primary',
                     onClick: this.show.bind(this)
                 }, '确认'),
                 React.createElement(Toast, {

@@ -1,25 +1,60 @@
 <!DOCTYPE html>
-<html lang="zh_CN">
+<html>
 
 <head>
-    <title>react</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="bower_components/animate.css/animate.css" rel="stylesheet">
-    <link href="bower_components/weui/dist/style/weui.min.css" rel="stylesheet">
-    <link href="dist/style.map.css" rel="stylesheet">
-    <!--<link href="less/style.less" rel="stylesheet/less">
-    <script src="http://cdn.bootcss.com/less.js/2.7.1/less.min.js"></script>-->
+    <style>
+        .div {
+            position: relative;
+            width: 600px;
+            height: 300px;
+            left: 0;
+            background: blue;
+            
+        }
+        
+       
+        .div1 {
+            background: #f00;
+            transition: all 2s;
+            -moz-transition: all 2s;
+            -webkit-transition: all 2s;
+            -o-transition: all 2s;
+            position:relative;
+            top:0;
+            left:0;
+            width:100px;
+            height:100px;
+        }
+        .div2 {
+            background: #f00;
+            transition: all 2s;
+            -moz-transition: all 2s;
+            -webkit-transition: all 2s;
+            -o-transition: all 2s;
+            position:relative;
+            top:0;
+            left:100px;
+            width:100px;
+            height:100px;
+        }
+
+         .div:hover .div1{
+            transform: translateX(200px);
+        }
+        .div:hover .div2{
+            transform: translateX(200px);
+        }
+
+
+    </style>
 </head>
-<style>
-    html {
-        height: 100%;
-        background: #f00;
-    }
-</style>
 
 <body>
-    <div id="app"></div>
+    <div class="div">
+
+<div class="div1"></div>
+<div class="div2"></div>
+    </div>
 </body>
 
 </html>

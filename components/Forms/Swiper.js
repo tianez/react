@@ -132,7 +132,7 @@ class Tab extends React.Component {
         }
         let dot = this.state.dot
         let width = e.target.getBoundingClientRect().width
-        let w = width / 2
+        let w = width / 4
         let mv = this.endX - this.startX
         let mx = Math.abs(mv)
         e.target.style.transition = "all .3s"
@@ -164,13 +164,13 @@ class Tab extends React.Component {
                 let refName = "tab" + dot;
                 let ev = this.refs[refName].style
                 ev.transition = "all .3s"
-                ev.transform = 'translateX(' + (-width) + 'px)'
+                ev.transform = 'translateX(-100%)'
             } else if (mv < 0 && dot < this.length - 1) {
                 dot = dot + 1
                 let refName = "tab" + dot;
                 let ev = this.refs[refName].style
                 ev.transition = "all .3s"
-                ev.transform = 'translateX(' + width + 'px)'
+                ev.transform = 'translateX(100%)'
             }
             e.target.style.transform = 'translateX(0)'
         }
@@ -213,7 +213,8 @@ class Tab extends React.Component {
                     }.bind(this))
                 ),
                 React.createElement('div', {
-                        className: 'tab-cards2'
+                        className: 'tab-cards2',
+                        ref:'cards'
                     },
                     childs.map(function(child, index) {
                         let style
@@ -223,11 +224,11 @@ class Tab extends React.Component {
                             }
                         } else if (index < dot) {
                             style = {
-                                transform: 'translateX(-600px)'
+                                transform: 'translateX(-100%)'
                             }
                         } else if (index > dot) {
                             style = {
-                                transform: 'translateX(600px)'
+                                transform: 'translateX(100%)'
                             }
                         }
                         return React.createElement('div', {

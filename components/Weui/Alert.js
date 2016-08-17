@@ -1,5 +1,5 @@
 'use strict'
-
+const classNames = require('classNames')
 class Alert extends React.Component {
     constructor(props) {
         super(props)
@@ -30,9 +30,13 @@ class Alert extends React.Component {
         }
     }
     render() {
+        const cls = classNames({
+            weui_dialog_confirm: !this.props.alert,
+            weui_dialog_alert: this.props.alert
+        })
         return (
             React.createElement('div', {
-                className: 'weui_dialog_alert',
+                className: cls,
                 style: {
                     display: this.state.show ? 'block' : 'none'
                 }
@@ -60,7 +64,7 @@ class Alert extends React.Component {
                     React.createElement('div', {
                         className: 'weui_dialog_ft'
                     },
-                        this.props.tip ? React.createElement('a', {
+                        !this.props.alert ? React.createElement('a', {
                             className: 'weui_btn_dialog default',
                             onClick: this._onClick.bind(this)
                         },
@@ -80,10 +84,10 @@ class Alert extends React.Component {
 }
 Alert.defaultProps = {
     show: false,
-    tip: true,
     title: '弹窗标题',
     content: '弹窗内容，告知当前页面信息等',
-    action: '确定'
+    action: '确定',
+    alert:true,
 }
 
 module.exports = Alert

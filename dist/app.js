@@ -1333,7 +1333,11 @@
 	            return React.createElement('header', {
 	                id: 'header',
 	                className: 'header'
-	            }, this.props.title);
+	            }, React.createElement('i', {
+	                className: 'fa fa-home fa-left'
+	            }), React.createElement('div', {
+	                className: 'title'
+	            }, this.props.title));
 	        }
 	    }]);
 
@@ -2660,7 +2664,7 @@
 
 /***/ },
 /* 34 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -2671,6 +2675,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var classNames = __webpack_require__(16);
 
 	var Alert = function (_React$Component) {
 	    _inherits(Alert, _React$Component);
@@ -2717,8 +2723,12 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var cls = classNames({
+	                weui_dialog_confirm: !this.props.alert,
+	                weui_dialog_alert: this.props.alert
+	            });
 	            return React.createElement('div', {
-	                className: 'weui_dialog_alert',
+	                className: cls,
 	                style: {
 	                    display: this.state.show ? 'block' : 'none'
 	                }
@@ -2734,7 +2744,7 @@
 	                className: 'weui_dialog_bd'
 	            }, this.state.content ? this.state.content : this.props.content), React.createElement('div', {
 	                className: 'weui_dialog_ft'
-	            }, this.props.tip ? React.createElement('a', {
+	            }, !this.props.alert ? React.createElement('a', {
 	                className: 'weui_btn_dialog default',
 	                onClick: this._onClick.bind(this)
 	            }, '取消') : null, React.createElement('a', {
@@ -2749,10 +2759,10 @@
 
 	Alert.defaultProps = {
 	    show: false,
-	    tip: true,
 	    title: '弹窗标题',
 	    content: '弹窗内容，告知当前页面信息等',
-	    action: '确定'
+	    action: '确定',
+	    alert: true
 	};
 
 	module.exports = Alert;
@@ -3586,6 +3596,11 @@
 
 	var Content = _require2.Content;
 
+	var _require3 = __webpack_require__(19);
+
+	var Button = _require3.Button;
+	var Toast = _require3.Toast;
+
 	var Post = function (_React$Component) {
 	    _inherits(Post, _React$Component);
 
@@ -3678,7 +3693,7 @@
 	            return React.createElement(Content, {
 	                reLoad: this.reLoad.bind(this)
 	            }, React.createElement(Button, {
-	                type: 'primary',
+	                className: 'weui_btn_primary',
 	                onClick: this.show.bind(this)
 	            }, '确认'), React.createElement(Toast, {}, 'loading...'), React.createElement('div', {
 	                className: 'form-group'
@@ -4156,7 +4171,7 @@
 	            }
 	            var dot = this.state.dot;
 	            var width = e.target.getBoundingClientRect().width;
-	            var w = width / 2;
+	            var w = width / 4;
 	            var mv = this.endX - this.startX;
 	            var mx = Math.abs(mv);
 	            e.target.style.transition = "all .3s";
@@ -4188,13 +4203,13 @@
 	                    var _refName2 = "tab" + dot;
 	                    var _ev = this.refs[_refName2].style;
 	                    _ev.transition = "all .3s";
-	                    _ev.transform = 'translateX(' + -width + 'px)';
+	                    _ev.transform = 'translateX(-100%)';
 	                } else if (mv < 0 && dot < this.length - 1) {
 	                    dot = dot + 1;
 	                    var _refName3 = "tab" + dot;
 	                    var _ev2 = this.refs[_refName3].style;
 	                    _ev2.transition = "all .3s";
-	                    _ev2.transform = 'translateX(' + width + 'px)';
+	                    _ev2.transform = 'translateX(100%)';
 	                }
 	                e.target.style.transform = 'translateX(0)';
 	            }
@@ -4234,7 +4249,8 @@
 	                    className: 'tab-card' + active
 	                }, child.props.title);
 	            }.bind(this))), React.createElement('div', {
-	                className: 'tab-cards2'
+	                className: 'tab-cards2',
+	                ref: 'cards'
 	            }, childs.map(function (child, index) {
 	                var style = void 0;
 	                if (index == dot) {
@@ -4243,11 +4259,11 @@
 	                    };
 	                } else if (index < dot) {
 	                    style = {
-	                        transform: 'translateX(-600px)'
+	                        transform: 'translateX(-100%)'
 	                    };
 	                } else if (index > dot) {
 	                    style = {
-	                        transform: 'translateX(600px)'
+	                        transform: 'translateX(100%)'
 	                    };
 	                }
 	                return React.createElement('div', {

@@ -11,7 +11,14 @@ class Header extends React.Component {
             React.createElement('header', {
                 id: 'header',
                 className: 'header',
-            }, this.props.title)
+            },
+                React.createElement('i', {
+                    className: 'fa fa-home fa-left',
+                }),
+                React.createElement('div', {
+                    className: 'title',
+                }, this.props.title)
+            )
         )
     }
 }
